@@ -26,6 +26,12 @@ import java.io.File;
  *
  * 测试网站 http://media.w3.org/2010/05/sintel/trailer.mp4
  *
+ * 使用方法
+ *   val player = ExoUtils.initPlayer(this)
+ *         video_view.player = player
+ *         player.playWhenReady = true
+ *         player.prepare(ExoUtils.getMediaSourse(this, filePath), false, true)
+ *
  */
 public class ExoUtils {
 
