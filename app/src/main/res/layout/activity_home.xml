@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp"/>
@@ -23,6 +24,7 @@
            android:layout_height="60dp">
 
            <LinearLayout
+               android:id="@+id/ll_home"
                android:layout_width="0dp"
                android:layout_weight="1"
                android:orientation="vertical"
@@ -30,11 +32,13 @@
                android:layout_height="match_parent">
 
                <ImageView
+                   android:id="@+id/iv_home"
                    android:layout_width="wrap_content"
                    android:src="@mipmap/house_gray"
                    android:layout_height="30dp" />
 
                <TextView
+                   android:id="@+id/tv_home"
                    android:text="主页"
                    android:textColor="@color/gray_bf"
                    android:textSize="15dp"
@@ -44,6 +48,7 @@
            </LinearLayout>
 
            <LinearLayout
+               android:id="@+id/ll_people"
                android:layout_width="0dp"
                android:layout_weight="1"
                android:orientation="vertical"
@@ -51,11 +56,13 @@
                android:layout_height="match_parent">
 
                <ImageView
+                   android:id="@+id/iv_people"
                    android:layout_width="wrap_content"
                    android:src="@mipmap/people_black"
                    android:layout_height="30dp" />
 
                <TextView
+                   android:id="@+id/tv_people"
                    android:text="艺术家"
                    android:textColor="@color/black_home_icon"
                    android:textSize="15dp"
@@ -65,6 +72,7 @@
            </LinearLayout>
 
            <LinearLayout
+               android:id="@+id/ll_voice"
                android:layout_width="0dp"
                android:layout_weight="1"
                android:orientation="vertical"
@@ -72,11 +80,13 @@
                android:layout_height="match_parent">
 
                <ImageView
+                   android:id="@+id/iv_voice"
                    android:layout_width="wrap_content"
                    android:src="@mipmap/voice_black"
                    android:layout_height="30dp" />
 
                <TextView
+                   android:id="@+id/tv_voice"
                    android:text="声音"
                    android:textColor="@color/black_home_icon"
                    android:textSize="15dp"
@@ -86,6 +96,7 @@
            </LinearLayout>
 
            <LinearLayout
+               android:id="@+id/ll_collect"
                android:layout_width="0dp"
                android:layout_weight="1"
                android:orientation="vertical"
@@ -93,11 +104,13 @@
                android:layout_height="match_parent">
 
                <ImageView
+                   android:id="@+id/iv_collect"
                    android:layout_width="wrap_content"
                    android:src="@mipmap/collet_blacl"
                    android:layout_height="30dp" />
 
                <TextView
+                   android:id="@+id/tv_collect"
                    android:text="我的"
                    android:textColor="@color/black_home_icon"
                    android:textSize="15dp"
