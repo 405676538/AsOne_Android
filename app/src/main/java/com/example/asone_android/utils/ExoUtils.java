@@ -29,6 +29,7 @@ import java.io.File;
  * 使用方法
  *   val player = ExoUtils.initPlayer(this)
  *         video_view.player = player
+ *
  *         player.playWhenReady = true
  *         player.prepare(ExoUtils.getMediaSourse(this, filePath), false, true)
  *
