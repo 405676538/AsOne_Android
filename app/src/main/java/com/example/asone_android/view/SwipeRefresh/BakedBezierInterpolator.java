@@ -24,7 +24,7 @@ final class BakedBezierInterpolator implements Interpolator {
 
     /**
      * Lookup table values.
-     * Generated using a Bezier curve from (0,0) to (1,1) with control points:
+     * Generated using UpLoad Bezier curve from (0,0) to (1,1) with control points:
      * P0 (0,0)
      * P1 (0.4, 0)
      * P2 (0.2, 1.0)

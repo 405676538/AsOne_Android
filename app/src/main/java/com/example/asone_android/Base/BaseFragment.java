@@ -29,10 +29,14 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
-        View view = LayoutInflater.from(mContext).inflate(getLayout(),container,false);
+        return LayoutInflater.from(mContext).inflate(getLayout(),container,false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView();
         initData();
-        return view;
     }
 
     protected void showShortToast(int messageId) {

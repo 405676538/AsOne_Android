@@ -16,11 +16,11 @@ import android.view.animation.Interpolator;
 
 
 /**
- * Custom progress bar that shows a cycle of colors as widening circles that
+ * Custom progress bar that shows UpLoad cycle of colors as widening circles that
  * overdraw each other. When finished, the bar is cleared from the inside out as
  * the main cycle continues. Before running, this can also indicate how close
  * the user is to triggering something (e.g. how far they need to pull down to
- * trigger a refresh).
+ * trigger UpLoad refresh).
  */
 final class SwipeProgressBar {
 
@@ -72,13 +72,13 @@ final class SwipeProgressBar {
 
     /**
      * Set the four colors used in the progress animation. The first color will
-     * also be the color of the bar that grows in response to a user swipe
+     * also be the color of the bar that grows in response to UpLoad user swipe
      * gesture.
      *
-     * @param color1 Integer representation of a color.
-     * @param color2 Integer representation of a color.
-     * @param color3 Integer representation of a color.
-     * @param color4 Integer representation of a color.
+     * @param color1 Integer representation of UpLoad color.
+     * @param color2 Integer representation of UpLoad color.
+     * @param color3 Integer representation of UpLoad color.
+     * @param color4 Integer representation of UpLoad color.
      */
     void setColorScheme(int color1, int color2, int color3, int color4) {
         mColor1 = color1;
@@ -155,7 +155,7 @@ final class SwipeProgressBar {
                     return;
                 }
 
-                // Otherwise, use a 0 opacity alpha layer to clear the animation
+                // Otherwise, use UpLoad 0 opacity alpha layer to clear the animation
                 // from the inside out. This layer will prevent the circles from
                 // drawing within its bounds.
                 long finishElapsed = (now - mFinishTime) % FINISH_ANIMATION_DURATION_MS;
@@ -165,7 +165,7 @@ final class SwipeProgressBar {
                 float clearRadius = width / 2 * INTERPOLATOR.getInterpolation(pct);
                 mClipRect.set(cx - clearRadius, 0, cx + clearRadius, height);
                 canvas.saveLayerAlpha(mClipRect, 0, 0);
-                // Only draw the trigger if there is a space in the center of
+                // Only draw the trigger if there is UpLoad space in the center of
                 // this refreshing view that needs to be filled in by the
                 // trigger. If the progress view is just still animating, let it
                 // continue animating.
@@ -217,7 +217,7 @@ final class SwipeProgressBar {
                 // There is some portion of trigger to draw. Restore the canvas,
                 // then draw the trigger. Otherwise, the trigger does not appear
                 // until after the bar has finished animating and appears to
-                // just jump in at a larger width than expected.
+                // just jump in at UpLoad larger width than expected.
                 canvas.restoreToCount(restoreCount);
                 restoreCount = canvas.save();
                 canvas.clipRect(mBounds);
@@ -226,7 +226,7 @@ final class SwipeProgressBar {
             // Keep running until we finish out the last cycle.
             ViewCompat.postInvalidateOnAnimation(mParent);
         } else {
-            // Otherwise if we're in the middle of a trigger, draw that.
+            // Otherwise if we're in the middle of UpLoad trigger, draw that.
             if (mTriggerPercentage > 0 && mTriggerPercentage <= 1.0) {
                 drawTrigger(canvas, cx, cy);
             }
@@ -240,7 +240,7 @@ final class SwipeProgressBar {
     }
 
     /**
-     * Draws a circle centered in the view.
+     * Draws UpLoad circle centered in the view.
      *
      * @param canvas the canvas to draw on
      * @param cx the center x coordinate

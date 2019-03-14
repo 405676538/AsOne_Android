@@ -19,13 +19,16 @@ import java.io.OutputStreamWriter;
 public class FileUtils {
     private static final String TAG = "FileUtils";
     public static final int CHOOSE_FILE_CODE = 126;
+    public static final int CHOOSE_VOICE_CODE = 127;
+
+
 
     // 调用系统文件管理器
-    public static void chooseFile(Activity context) {
+    public static void chooseFile(Activity context,int requestCode) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
         try {
-            context.startActivityForResult(Intent.createChooser(intent, "Choose File"), CHOOSE_FILE_CODE);
+            context.startActivityForResult(Intent.createChooser(intent, "Choose File"), requestCode);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(context, "亲，木有文件管理器啊-_-!!", Toast.LENGTH_SHORT).show();
         }

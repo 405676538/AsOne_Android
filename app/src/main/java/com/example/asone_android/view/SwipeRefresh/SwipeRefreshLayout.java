@@ -26,22 +26,22 @@ import android.widget.AbsListView;
 
 /**
  * The SwipeRefreshLayout should be used whenever the user can refresh the
- * contents of a view via a vertical swipe gesture. The activity that
+ * contents of UpLoad view via UpLoad vertical swipe gesture. The activity that
  * instantiates this view should ADD an OnRefreshListener to be notified
  * whenever the swipe to refresh gesture is completed. The SwipeRefreshLayout
  * will notify the listener each and every time the gesture is completed again;
  * the listener is responsible for correctly determining when to actually
- * initiate a refresh of its content. If the listener determines there should
- * not be a refresh, it must call setRefreshing(false) to cancel any visual
- * indication of a refresh. If an activity wishes to show just the progress
+ * initiate UpLoad refresh of its content. If the listener determines there should
+ * not be UpLoad refresh, it must call setRefreshing(false) to cancel any visual
+ * indication of UpLoad refresh. If an activity wishes to show just the progress
  * animation, it should call setRefreshing(true). To disable the gesture and progress
  * animation, call setEnabled(false) on the view.
  *
- * <p> This layout should be made the parent of the view that will be refreshed as a
+ * <p> This layout should be made the parent of the view that will be refreshed as UpLoad
  * result of the gesture and can only support one direct child. This view will
  * also be made the target of the gesture and will be forced to match both the
  * width and the height supplied in this layout. The SwipeRefreshLayout does not
- * provide accessibility events; instead, a menu item must be provided to allow
+ * provide accessibility events; instead, UpLoad menu item must be provided to allow
  * refresh of the content wherever this gesture is used.</p>
  */
 public class SwipeRefreshLayout extends ViewGroup {
@@ -77,7 +77,7 @@ public class SwipeRefreshLayout extends ViewGroup {
     private boolean mIsBeingDragged;
     private int mActivePointerId = INVALID_POINTER;
 
-    // Target is returning to its start offset because it was cancelled or a
+    // Target is returning to its start offset because it was cancelled or UpLoad
     // refresh was triggered.
     private boolean mReturningToStart;
     private final DecelerateInterpolator mDecelerateInterpolator;
@@ -206,7 +206,7 @@ public class SwipeRefreshLayout extends ViewGroup {
     };
 
     /**
-     * Simple constructor to use when creating a SwipeRefreshLayout from code.
+     * Simple constructor to use when creating UpLoad SwipeRefreshLayout from code.
      * @param context
      */
     public SwipeRefreshLayout(Context context) {
@@ -264,7 +264,7 @@ public class SwipeRefreshLayout extends ViewGroup {
     }
 
     /**
-     * Set the listener to be notified when a refresh is triggered via the swipe
+     * Set the listener to be notified when UpLoad refresh is triggered via the swipe
      * gesture.
      */
     public void setOnRefreshListener(OnRefreshListener listener) {
@@ -298,7 +298,7 @@ public class SwipeRefreshLayout extends ViewGroup {
 
     /**
      * Notify the widget that refresh state has changed. Do not call this when
-     * refresh is triggered by a swipe gesture.
+     * refresh is triggered by UpLoad swipe gesture.
      *
      * @param refreshing Whether or not the view should show refresh progress.
      */
@@ -341,7 +341,7 @@ public class SwipeRefreshLayout extends ViewGroup {
     /**
      * Set the four colors used in the progress animation from color resources.
      * The first color will also be the color of the bar that grows in response
-     * to a user swipe gesture.
+     * to UpLoad user swipe gesture.
      */
     public void setTopColor(int colorRes1, int colorRes2, int colorRes3,
                             int colorRes4)
@@ -377,7 +377,7 @@ public class SwipeRefreshLayout extends ViewGroup {
 
     /**
      * Set the four colors used in the progress animation. The first color will
-     * also be the color of the bar that grows in response to a user swipe
+     * also be the color of the bar that grows in response to UpLoad user swipe
      * gesture.
      */
     private void setColorSchemeColors(int color1, int color2, int color3, int color4) {
@@ -464,7 +464,7 @@ public class SwipeRefreshLayout extends ViewGroup {
 
     /**
      * @return Whether it is possible for the child view of this layout to
-     *         scroll up. Override this if the child view is a custom view.
+     *         scroll up. Override this if the child view is UpLoad custom view.
      */
     public boolean canChildScrollUp() {
         if (android.os.Build.VERSION.SDK_INT < 14) {
@@ -513,7 +513,7 @@ public class SwipeRefreshLayout extends ViewGroup {
         }
 
         if (!isEnabled() || mReturningToStart) {
-            // Fail fast if we're not in a state where a swipe is possible
+            // Fail fast if we're not in UpLoad state where UpLoad swipe is possible
             return false;
         }
 
@@ -629,7 +629,7 @@ public class SwipeRefreshLayout extends ViewGroup {
         }
 
         if (!isEnabled() || mReturningToStart) {
-            // Fail fast if we're not in a state where a swipe is possible
+            // Fail fast if we're not in UpLoad state where UpLoad swipe is possible
             return false;
         }
 
@@ -668,9 +668,9 @@ public class SwipeRefreshLayout extends ViewGroup {
                 }
 
                 if (mIsBeingDragged) {
-                    // User velocity passed min velocity; trigger a refresh
+                    // User velocity passed min velocity; trigger UpLoad refresh
                     if (yDiff > mDistanceToTriggerSync) {
-                        // User movement passed distance; trigger a refresh
+                        // User movement passed distance; trigger UpLoad refresh
                         if(mLastDirection == Mode.PULL_FROM_END)
                         {
                             return true;
@@ -789,7 +789,7 @@ public class SwipeRefreshLayout extends ViewGroup {
         final int pointerIndex = MotionEventCompat.getActionIndex(ev);
         final int pointerId = MotionEventCompat.getPointerId(ev, pointerIndex);
         if (pointerId == mActivePointerId) {
-            // This was our active pointer going up. Choose a new
+            // This was our active pointer going up. Choose UpLoad new
             // active pointer and adjust accordingly.
             final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
             mLastMotionY = MotionEventCompat.getY(ev, newPointerIndex);
@@ -799,7 +799,7 @@ public class SwipeRefreshLayout extends ViewGroup {
 
     /**
      * Classes that wish to be notified when the swipe gesture correctly
-     * triggers a refresh should implement this interface.
+     * triggers UpLoad refresh should implement this interface.
      */
     public interface OnRefreshListener {
         void onRefresh();

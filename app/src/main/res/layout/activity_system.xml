@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_show_img_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="显示图片id"
+            android:textColor="@color/black"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/btn_select_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="select image upload" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_show_audio_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="显示音频id"
+            android:textColor="@color/black"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/btn_select_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="select Audio upload" />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="title（标题）" />
+
+    <EditText
+        android:id="@+id/et_music_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="musicLabel(标签)" />
+
+    <EditText
+        android:id="@+id/et_artist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="artist艺术家" />
+
+    <EditText
+        android:id="@+id/et_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="country国籍" />
+
+    <Button
+        android:id="@+id/btn_upload"
+        android:text="上传"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

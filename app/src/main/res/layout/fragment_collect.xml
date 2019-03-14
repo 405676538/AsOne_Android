@@ -11,4 +11,12 @@
         android:textColor="@color/white"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:id="@+id/iv_sys"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="100dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="100dp" />
+
 </RelativeLayout>
