@@ -1,4 +1,4 @@
-package com.example.asone_android.activity
+package com.example.asone_android.activity.system_activity
 
 import android.content.Intent
 import android.view.View
@@ -14,10 +14,10 @@ import kotlinx.android.synthetic.main.activity_system.*
 import java.io.File
 import kotlin.math.log
 
-class SystemActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatMusicView {
+class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatMusicView {
 
 
-    val TAG = "SystemActivity"
+    val TAG = "AddMusicActivity"
     var presenter = MusicPresenter()
 
     var imgId = ""
