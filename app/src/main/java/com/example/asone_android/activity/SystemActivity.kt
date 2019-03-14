@@ -1,9 +1,12 @@
 package com.example.asone_android.activity
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
+import android.view.View
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener
+import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.asone_android.Base.BaseActivity
+import com.example.asone_android.Base.BaseJson
 import com.example.asone_android.R
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.FileUtils
@@ -23,6 +26,7 @@ class SystemActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter
     var musicLabel = ""
     var artist = ""
     var country = ""
+    val musicLabelList = mutableListOf<String>()
 
 
     override fun getLayout(): Int {
@@ -40,11 +44,22 @@ class SystemActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter
             getEdit()
             presenter.creatMusic(voiceId,imgId,title,musicLabel,artist,country,this)
         }
+        tv_music_label.setOnClickListener {
+            var options =OptionsPickerBuilder(SystemActivity@this,object : OnOptionsSelectListener{
+                override fun onOptionsSelect(options1: Int, options2: Int, options3: Int, v: View?) {
+                    tv_music_label.text = musicLabelList[options1]
+                }
+
+            }).build<String>()
+            options.setPicker(musicLabelList)
+            options.show()
+        }
+
     }
 
     fun getEdit(){
         title = et_title.text.toString()
-        musicLabel = et_music_label.text.toString()
+        musicLabel = tv_music_label.text.toString()
         artist = et_artist.text.toString()
         country = et_country.text.toString()
     }
@@ -59,12 +74,18 @@ class SystemActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter
         artist = ""
         country = ""
         et_title.setText("")
-        et_music_label.setText("")
+        tv_music_label.setText("")
         et_artist.setText("")
         et_country.setText("")
     }
 
     override fun initView() {
+        musicLabelList.add("风雨声")
+        musicLabelList.add("夜间")
+        musicLabelList.add("人声")
+        musicLabelList.add("摩擦声")
+        musicLabelList.add("呼吸声")
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
