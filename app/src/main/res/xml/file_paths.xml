@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <root-path
+        name="root_download"
+        path="." />
+    <external-path
+        name="download/0"
+        path="." />
+    <!--Context.getFilesDir().-->
+    <files-path
+        name="images"
+        path="images" />
+    <!-- getCacheDir().-->
+    <cache-path
+        name="images1"
+        path="images" />
+    <!-- Environment.getExternalStorageDirectory().-->
+    <external-path
+        name="images2"
+        path="images" />
+    <!--Context#getExternalFilesDir(String) Context.getExternalFilesDir(null).   -->
+    <external-files-path
+        name="images3"
+        path="images" />
+    <!-- Context.getExternalCacheDir().  -->
+    <external-cache-path
+        name="images4"
+        path="images" />
+</paths>

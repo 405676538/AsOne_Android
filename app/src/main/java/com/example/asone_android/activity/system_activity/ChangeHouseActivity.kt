@@ -81,6 +81,10 @@ class ChangeHouseActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPres
         album.let {
             allMusicList.clear()
             allMusicList.addAll(album!!)
+            for (music in allMusicList){
+                music.playVisible = true
+                music.selectVisible = true
+            }
             allAdapter.notifyDataSetChanged()
         }
     }
@@ -107,4 +111,10 @@ class ChangeHouseActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPres
         showShortToast(json!!.msg)
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        selectAdapter.distory()
+        allAdapter.distory()
+    }
 }

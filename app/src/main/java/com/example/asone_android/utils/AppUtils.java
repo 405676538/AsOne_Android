@@ -22,6 +22,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.asone_android.net.ApiClient;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
@@ -50,6 +52,9 @@ public class AppUtils {
 
 
 
+    public static String getDownLoadFileUrl(String fileId){
+        return ApiClient.baseUrl+"/downLoadFile/"+fileId;
+    }
 
 
 
