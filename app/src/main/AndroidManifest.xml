@@ -67,6 +67,8 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".activity.system_activity.AddMusicActivity" />
+        <activity android:name=".activity.system_activity.ChangeHouseActivity"/>
+        <activity android:name=".activity.system_activity.SystemHomeActivity"/>
         <activity
             android:name=".activity.HomeActivity"
             android:theme="@style/TranslucentTheme">

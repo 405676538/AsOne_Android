@@ -3,10 +3,16 @@ package com.example.asone_android.net;
 import android.util.Log;
 
 import com.example.asone_android.Base.BaseJson;
+import com.example.asone_android.bean.Music;
+import com.example.asone_android.bean.MusicAlbum;
+import com.example.asone_android.bean.MusicFieldInfo;
 import com.example.asone_android.bean.UpLoad;
+import com.google.gson.Gson;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -18,7 +24,7 @@ import retrofit2.Response;
 
 public class MusicPresenter {
     private static final String TAG = "MusicPresenter";
-
+    Gson mGson = new Gson();
 
     /** 上传文件 */
     public interface UpLoadView{
@@ -91,5 +97,51 @@ public class MusicPresenter {
         });
     }
 
+    public interface GetMusicView{
+        void getMusicDuccess(List<Music> album);
+    }
+
+    public void getAlbumMusic(String musicLabel,GetMusicView getMusicView){
+        Call<List<MusicFieldInfo>> call = ApiClient.apiList.getMusicAlbum(musicLabel);
+        call.enqueue(new Callback<List<MusicFieldInfo>>() {
+            @Override
+            public void onResponse(Call<List<MusicFieldInfo>> call, Response<List<MusicFieldInfo>> response) {
+                List<MusicFieldInfo> list = response.body();
+                if (list == null || list.size() == 0){
+                    Log.i(TAG, "onFailure: no data");
+                    return;
+                }
+                List<Music> musicList = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    musicList.add(list.get(i).getFields());
+                }
+                getMusicView.getMusicDuccess(musicList);
+            }
+
+            @Override
+            public void onFailure(Call<List<MusicFieldInfo>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public interface CreatHouseAlbumMusic{
+        void albumUpSuccess(BaseJson json);
+    }
+
+    public void creatHouseAlbum(MusicAlbum album,CreatHouseAlbumMusic creatHouseAlbumMusic){
+        Call<BaseJson> call = ApiClient.apiList.addHouseAlbum(album.getImgUrl(),mGson.toJson(album.getMusicList()));
+        call.enqueue(new Callback<BaseJson>() {
+            @Override
+            public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
+                creatHouseAlbumMusic.albumUpSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BaseJson> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
 
 }

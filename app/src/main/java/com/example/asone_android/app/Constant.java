@@ -32,4 +32,11 @@ public class Constant {
      */
     public static float DOUBLE_NUM = 30; //移动率 影响进度条的增长长度
     public static int SPACE_TIME = 2000; //间隔周期，每次移动间隔时间
+
+    /***
+     * EventBusCode
+     *
+     * */
+    public static final int E_UPDATA_SYSTEM_MUSI = 11110;
+
 }
