@@ -30,6 +30,15 @@
                 android:layout_height="wrap_content"
                 android:text="select image upload" />
 
+            <EditText
+                android:id="@+id/et_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:hint="请输入标题"
+                android:textSize="12dp" />
+
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

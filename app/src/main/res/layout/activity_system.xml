@@ -60,33 +60,45 @@
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="title（标题）" />
-
-        <TextView
-            android:id="@+id/tv_music_label"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="点击选择musicLabel(标签)：" />
+            android:layout_marginTop="15dp"
+            android:background="@null"
+            android:layout_marginBottom="15dp"
+            android:hint="title（标题）"
+            android:textSize="12dp" />
 
         <EditText
             android:id="@+id/et_artist"
+            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="artist艺术家" />
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:hint="artist艺术家"
+            android:textSize="12dp" />
 
-        <EditText
-            android:id="@+id/et_country"
+        <TextView
+            android:id="@+id/tv_music_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="country国籍" />
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:hint="点击选择musicLabel(标签)："
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:hint="country国籍"
+            android:textSize="12dp" />
 
         <Button
             android:id="@+id/btn_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="上传" />
-
 
 
     </LinearLayout>

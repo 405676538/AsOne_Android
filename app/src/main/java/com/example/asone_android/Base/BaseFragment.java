@@ -16,7 +16,7 @@ import android.widget.Toast;
 public abstract class BaseFragment extends Fragment {
 
     private Toast ShortToast;
-    private Context mContext;
+    public Context mContext;
 
 
     protected abstract int getLayout();

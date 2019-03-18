@@ -2,6 +2,7 @@ package com.example.asone_android.net;
 
 import com.example.asone_android.Base.BaseJson;
 import com.example.asone_android.bean.MusicAlbum;
+import com.example.asone_android.bean.MusicAlbumInfo;
 import com.example.asone_android.bean.MusicFieldInfo;
 import com.example.asone_android.bean.UpLoad;
 
@@ -35,12 +36,16 @@ public interface ApiList {
     Call<UpLoad> postMusic(@Field("audioId")String audioId,@Field("imgId")String imgId,@Field("title")String title,
                            @Field("musicLabel")String musicLabel,@Field("artist")String artist,@Field("country")String country);
 
-    /** 获取Music列表 */
+    /** 获取全部Music列表 */
     @GET("/music")
     Call<List<MusicFieldInfo>> getMusicAlbum(@Query("musicLabel")String musicLabel);
 
     /** 新建MusicAlbum */
     @POST("/house/album")
     @FormUrlEncoded
-    Call<BaseJson> addHouseAlbum(@Field("imgUrl")String imgUrl,@Field("musicAlbumList") String musicAlbumList);
+    Call<BaseJson> addHouseAlbum(@Field("title")String title,@Field("imgUrl")String imgUrl,@Field("musicAlbumList") String musicAlbumList);
+
+    /** 获取MusicAlbum首页列表*/
+    @GET("/house/album")
+    Call<List<MusicAlbumInfo>> getMusicAlbumHouse();
 }

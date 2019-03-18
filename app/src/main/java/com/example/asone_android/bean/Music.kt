@@ -7,7 +7,7 @@ class Music {
     var musicLabel = ""
     var artist = ""
     var country = ""
-
+    var musicId= ""
     var select = false
     var selectVisible = false
     var play = false

@@ -12,6 +12,7 @@ import com.example.asone_android.bean.EventBusMessage
 import com.example.asone_android.bean.Music
 import com.example.asone_android.utils.AppUtils
 import com.example.asone_android.utils.ExoUtils
+import com.example.asone_android.utils.ImageUtil
 import com.example.asone_android.view.SwipeRefresh.BaseRecyAdapter
 import com.google.android.exoplayer2.ExoPlayer
 import org.greenrobot.eventbus.EventBus
@@ -47,7 +48,7 @@ class MusicAdapter(context: Context, layout:Int, private val systemList:MutableL
             select.setImageResource(R.mipmap.select_none)
         }
 //        http://192.168.100.64:8000/downLoadFile/1552642904.4751825fileId.jpg
-        Glide.with(mContext).load(AppUtils.getDownLoadFileUrl(music.imgId)).into(img)
+        ImageUtil.GlidegetRoundImage(AppUtils.getDownLoadFileUrl(music.imgId),img)
         title.text = music.title
         lable.text = music.musicLabel
 

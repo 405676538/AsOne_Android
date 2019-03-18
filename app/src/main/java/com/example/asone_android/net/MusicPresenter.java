@@ -1,10 +1,13 @@
 package com.example.asone_android.net;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.asone_android.Base.BaseJson;
+import com.example.asone_android.app.BaseApplication;
 import com.example.asone_android.bean.Music;
 import com.example.asone_android.bean.MusicAlbum;
+import com.example.asone_android.bean.MusicAlbumInfo;
 import com.example.asone_android.bean.MusicFieldInfo;
 import com.example.asone_android.bean.UpLoad;
 import com.google.gson.Gson;
@@ -108,7 +111,7 @@ public class MusicPresenter {
             public void onResponse(Call<List<MusicFieldInfo>> call, Response<List<MusicFieldInfo>> response) {
                 List<MusicFieldInfo> list = response.body();
                 if (list == null || list.size() == 0){
-                    Log.i(TAG, "onFailure: no data");
+                    Toast.makeText(BaseApplication.getAppContext(),"list为空",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 List<Music> musicList = new ArrayList<>();
@@ -129,8 +132,8 @@ public class MusicPresenter {
         void albumUpSuccess(BaseJson json);
     }
 
-    public void creatHouseAlbum(MusicAlbum album,CreatHouseAlbumMusic creatHouseAlbumMusic){
-        Call<BaseJson> call = ApiClient.apiList.addHouseAlbum(album.getImgUrl(),mGson.toJson(album.getMusicList()));
+    public void creatHouseAlbum(String title,MusicAlbum album,CreatHouseAlbumMusic creatHouseAlbumMusic){
+        Call<BaseJson> call = ApiClient.apiList.addHouseAlbum(title,album.getImgUrl(),album.getListIds());
         call.enqueue(new Callback<BaseJson>() {
             @Override
             public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
@@ -140,6 +143,30 @@ public class MusicPresenter {
             @Override
             public void onFailure(Call<BaseJson> call, Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    public interface GetMusicAlbumView{
+        void getAlbumSuccess(List<MusicAlbumInfo> infos);
+    }
+
+    public void getMusicAlbum(GetMusicAlbumView albumView){
+        Call<List<MusicAlbumInfo>> call = ApiClient.apiList.getMusicAlbumHouse();
+        call.enqueue(new Callback<List<MusicAlbumInfo>>() {
+            @Override
+            public void onResponse(Call<List<MusicAlbumInfo>> call, Response<List<MusicAlbumInfo>> response) {
+                List<MusicAlbumInfo> list = response.body();
+                if (list == null || list.size() == 0){
+                    Toast.makeText(BaseApplication.getAppContext(),"首页数据不见了",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+             albumView.getAlbumSuccess(list);
+            }
+
+            @Override
+            public void onFailure(Call<List<MusicAlbumInfo>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
             }
         });
     }

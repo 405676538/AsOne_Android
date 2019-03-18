@@ -15,12 +15,14 @@ import com.example.asone_android.utils.FileUtils
 import kotlinx.android.synthetic.main.activity_change_house.*
 import java.io.File
 
+/** 添加首页music */
 class ChangeHouseActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.GetMusicView, MusicPresenter.CreatHouseAlbumMusic {
 
 
 
     var presenter = MusicPresenter()
     var albumImgId = ""
+    var title = ""
     var selectMusicList = mutableListOf<Music>()
     var allMusicList = mutableListOf<Music>()
 
@@ -45,10 +47,11 @@ class ChangeHouseActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPres
         presenter.getAlbumMusic("", this)
 
         btn_upload.setOnClickListener {
+            title = et_title.text.toString()
             var musicAlbum = MusicAlbum()
             musicAlbum.imgUrl = albumImgId
             musicAlbum.musicList = selectMusicList
-            presenter.creatHouseAlbum(musicAlbum,this)
+            presenter.creatHouseAlbum(title,musicAlbum,this)
         }
 
     }
