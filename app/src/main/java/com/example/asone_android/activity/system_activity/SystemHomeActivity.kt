@@ -19,7 +19,7 @@ class SystemHomeActivity: BaseActivity() {
     override fun initData() {
         modeList.add("修改首页列表")
         modeList.add("添加一个Music")
-        modeList.add("1")
+        modeList.add("添加一个艺术家")
         modeList.add("2")
         recyclerview.layoutManager = GridLayoutManager(this,3)
         var adapter = SystemModeAdapter(this,R.layout.item_system_mode,modeList)
@@ -28,6 +28,7 @@ class SystemHomeActivity: BaseActivity() {
             when(modeList[position]) {
                 "添加一个Music" ->  startActivity(Intent(mContext,AddMusicActivity::class.java))
                 "修改首页列表"-> startActivity(Intent(mContext,ChangeHouseActivity::class.java))
+//                "添加一个艺术家"->
             }
         }
     }
