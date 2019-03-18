@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ApiClient {
     private static final String TAG = "ApiClient";
-    public static final String baseUrl = "http://192.168.100.64:8000";
+    public static final String baseUrl = "http://192.168.1.102:8000";
 
 
     public static ApiList apiList; //普通的接口
@@ -22,10 +22,10 @@ public final class ApiClient {
     private static long TIME_OUT = 1000 * 30;
 
     public static void init() {
-        apiList = initApiService(baseUrl, ApiList.class);
+        apiList = initApiService(ApiList.class);
     }
 
-    private static <T> T initApiService(String baseUrl, Class<T> clazz) {
+    private static <T> T initApiService(Class<T> clazz) {
 
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         OkHttpClient client = builder
@@ -41,7 +41,7 @@ public final class ApiClient {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(ApiClient.baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

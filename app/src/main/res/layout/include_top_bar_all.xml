@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:id="@+id/rl_main_toolbar"
+    android:background="@color/black_red"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <TextView
+        android:id="@+id/tv_left"
+        android:textSize="18dp"
+        tools:something="左边"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="match_parent" />
+
+
+    <TextView
+        android:id="@+id/tv_center"
+        android:textSize="18sp"
+        tools:something="中间"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:textSize="18dp"
+        tools:something="右边"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="35dp"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:scaleType="center"
+        android:visibility="gone"
+        android:layout_marginTop="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>

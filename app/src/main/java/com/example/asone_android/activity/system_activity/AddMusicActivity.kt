@@ -11,6 +11,7 @@ import com.example.asone_android.R
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.FileUtils
 import kotlinx.android.synthetic.main.activity_system.*
+import kotlinx.android.synthetic.main.include_top_bar_all.*
 import java.io.File
 import kotlin.math.log
 

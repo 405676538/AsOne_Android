@@ -8,6 +8,7 @@ import com.example.asone_android.R
 import com.example.asone_android.adapter.SystemModeAdapter
 import com.example.asone_android.view.SwipeRefresh.BaseRecyAdapter
 import kotlinx.android.synthetic.main.activity_system_home.*
+import kotlinx.android.synthetic.main.include_top_bar_all.*
 
 class SystemHomeActivity: BaseActivity() {
     var modeList = mutableListOf<String>()
@@ -34,5 +35,7 @@ class SystemHomeActivity: BaseActivity() {
     }
 
     override fun initView() {
+        tv_left.text = "后台"
+        tv_left.visibility = View.VISIBLE
     }
 }

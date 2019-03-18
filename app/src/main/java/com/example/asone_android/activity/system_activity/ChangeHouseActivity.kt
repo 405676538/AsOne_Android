@@ -2,6 +2,7 @@ package com.example.asone_android.activity.system_activity
 
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.example.asone_android.Base.BaseActivity
 import com.example.asone_android.Base.BaseJson
 import com.example.asone_android.R
@@ -13,6 +14,7 @@ import com.example.asone_android.bean.MusicAlbum
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.FileUtils
 import kotlinx.android.synthetic.main.activity_change_house.*
+import kotlinx.android.synthetic.main.include_top_bar_all.*
 import java.io.File
 
 /** 添加首页music */
@@ -57,6 +59,8 @@ class ChangeHouseActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPres
     }
 
     override fun initView() {
+        tv_left.text = "修改首页列表"
+        tv_left.visibility = View.VISIBLE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
