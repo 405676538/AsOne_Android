@@ -1,9 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_show_img_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:hint="显示图片id"
+                android:textColor="@color/black"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/btn_select_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择头像" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_name"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:hint="名字"
+            android:textSize="12dp" />
 
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/et_brief"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@null"
+            android:layout_marginBottom="15dp"
+            android:hint="简介"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/et_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@null"
+            android:inputType="number"
+            android:layout_marginBottom="15dp"
+            android:hint="年龄"
+            android:textSize="12dp" />
+
+
+        <TextView
+            android:id="@+id/tv_select_six"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:hint="点击选择性别"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:hint="点击选择国籍"
+            android:textSize="12dp" />
+
+        <CheckBox
+            android:id="@+id/cb_commend"
+            android:hint="是否推荐"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传艺术家" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="-------------------分割线---------------------"
+            android:layout_height="20dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_show_country_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:hint="显示国旗图id"
+                android:textColor="@color/black"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/btn_select_country_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择国旗" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@null"
+            android:layout_marginBottom="15dp"
+            android:hint="名字"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/btn_upload_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传国家" />
+
+    </LinearLayout>
+
+</ScrollView>

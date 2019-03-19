@@ -66,8 +66,8 @@
             android:hint="title（标题）"
             android:textSize="12dp" />
 
-        <EditText
-            android:id="@+id/et_artist"
+        <TextView
+            android:id="@+id/tv_artist"
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -39,6 +39,9 @@ public class Constant {
      * */
     public static final int E_UPDATA_SYSTEM_MUSI = 11110;
 
-
+    public static final String[] sixList = {"男","女","无"};
+    public static final String[] countryList = {"中国","日本","韩国","美国","英国","俄国","银河共和国"};
+    public static final String[] asmrList = {"剪刀","采耳","嘴唇音","聊天","按摩","摩擦","呢喃私语",
+            "睡眠","粘液","雨声","自然声","轻敲","阅读","角色扮演","咀嚼","吃糖","低声噪音"};
 
 }

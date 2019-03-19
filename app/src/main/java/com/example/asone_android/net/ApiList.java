@@ -1,6 +1,7 @@
 package com.example.asone_android.net;
 
 import com.example.asone_android.Base.BaseJson;
+import com.example.asone_android.bean.BaseListJson;
 import com.example.asone_android.bean.MusicAlbum;
 import com.example.asone_android.bean.MusicAlbumInfo;
 import com.example.asone_android.bean.MusicFieldInfo;
@@ -48,4 +49,23 @@ public interface ApiList {
     /** 获取MusicAlbum首页列表*/
     @GET("/house/album")
     Call<List<MusicAlbumInfo>> getMusicAlbumHouse();
+
+    /** 创建一个艺术家 */
+    @POST("/artist")
+    @FormUrlEncoded
+    Call<BaseJson> addArtist(@Field("name")String name,@Field("age")String age,@Field("six")String six,@Field("brief")String brief,
+                             @Field("head")String head,@Field("country")String country,@Field("recommend")String recommend);
+
+    /** 获取艺术家列表 */
+    @GET("/artist")
+    Call<List<BaseListJson>> getArtistList();
+
+    /** 创建国家 */
+    @POST("/country")
+    @FormUrlEncoded
+    Call<BaseJson> addCountry(@Field("name")String name,@Field("banner")String banner);
+
+    /** 获取国家列表 */
+    @GET("/country")
+    Call<List<BaseListJson>> getCountryList();
 }

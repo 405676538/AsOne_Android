@@ -8,13 +8,16 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.example.asone_android.Base.BaseActivity
 import com.example.asone_android.Base.BaseJson
 import com.example.asone_android.R
+import com.example.asone_android.app.Constant
+import com.example.asone_android.bean.Artist
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.FileUtils
 import kotlinx.android.synthetic.main.activity_system.*
 import java.io.File
 import kotlin.math.log
 
-class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatMusicView {
+class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatMusicView, MusicPresenter.GetArtistView {
+
 
 
     val TAG = "AddMusicActivity"
@@ -66,7 +69,7 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
     fun getEdit(){
         title = et_title.text.toString()
         musicLabel = tv_music_label.text.toString()
-        artist = et_artist.text.toString()
+        artist = tv_artist.text.toString()
         country = tv_country.text.toString()
     }
 
@@ -86,32 +89,16 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
     }
 
     override fun initView() {
-        countryList.add("中国")
-        countryList.add("韩国")
-        countryList.add("日本")
-        countryList.add("美国")
-        countryList.add("英国")
-        countryList.add("俄国")
-        countryList.add("银河共和国")
 
+        for (str in Constant.countryList){
+            countryList.add(str)
+        }
 
-        musicLabelList.add("剪刀")
-        musicLabelList.add("采耳")
-        musicLabelList.add("嘴唇音")
-        musicLabelList.add("聊天")
-        musicLabelList.add("按摩")
-        musicLabelList.add("摩擦")
-        musicLabelList.add("呢喃 私语")
-        musicLabelList.add("睡眠")
-        musicLabelList.add("粘液")
-        musicLabelList.add("雨声")
-        musicLabelList.add("自然声")
-        musicLabelList.add("轻敲")
-        musicLabelList.add("阅读")
-        musicLabelList.add("角色扮演")
-        musicLabelList.add("咀嚼")
-        musicLabelList.add("吃糖")
-        musicLabelList.add("低声噪音")
+        for (str in Constant.asmrList){
+            musicLabelList.add(str)
+        }
+
+        presenter.getArtistList(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -149,6 +136,19 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
     override fun creatMusicSuccess(hint: String?) {
         showShortToast(hint)
         setnull()
+    }
+
+    override fun getArtistSuccess(artists: MutableList<Artist>?) {
+        var nameList = mutableListOf<String>()
+        for (art in artists!!){
+            nameList.add(art.name)
+        }
+        tv_artist.setOnClickListener {
+            val opTions =OptionsPickerBuilder(AddMusicActivity@this, OnOptionsSelectListener
+            { options1, options2, options3, v -> tv_artist.text = artists[options1].name }).build<String>()
+            opTions.setPicker(nameList)
+            opTions.show()
+        }
     }
 
 }

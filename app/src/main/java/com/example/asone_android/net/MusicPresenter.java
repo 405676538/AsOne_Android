@@ -5,6 +5,9 @@ import android.widget.Toast;
 
 import com.example.asone_android.Base.BaseJson;
 import com.example.asone_android.app.BaseApplication;
+import com.example.asone_android.bean.Artist;
+import com.example.asone_android.bean.BaseListJson;
+import com.example.asone_android.bean.Country;
 import com.example.asone_android.bean.Music;
 import com.example.asone_android.bean.MusicAlbum;
 import com.example.asone_android.bean.MusicAlbumInfo;
@@ -166,6 +169,103 @@ public class MusicPresenter {
 
             @Override
             public void onFailure(Call<List<MusicAlbumInfo>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public interface CreatArtistView{
+        void creatArtistSuccess(String s);
+    }
+
+    public void creatArtist(String head,String brief,String name,String age,String six,String country,String commend,CreatArtistView view){
+        Call<BaseJson> call = ApiClient.apiList.addArtist(name,age,six,brief,head,country,commend);
+        call.enqueue(new Callback<BaseJson>() {
+            @Override
+            public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
+                if (response.body() != null) {
+                    view.creatArtistSuccess(response.body().getMsg());
+                }else {
+                    Toast.makeText(BaseApplication.getAppContext(),"Response无返回",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseJson> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public interface GetArtistView{
+        void getArtistSuccess(List<Artist> artists);
+    }
+
+    public void getArtistList(GetArtistView view){
+        Call<List<BaseListJson>> call = ApiClient.apiList.getArtistList();
+        call.enqueue(new Callback<List<BaseListJson>>() {
+            @Override
+            public void onResponse(Call<List<BaseListJson>> call, Response<List<BaseListJson>> response) {
+                List<BaseListJson> listJsons = response.body();
+                List<Artist> artists = new ArrayList<>();
+                if (listJsons != null) {
+                    for (int i = 0; i < listJsons.size(); i++) {
+                        Artist artist = mGson.fromJson(listJsons.get(i).getFields().toString(),Artist.class);
+                        Log.i(TAG, "onResponse: "+artist.toString());
+                        artists.add(artist);
+                    }
+                }
+                view.getArtistSuccess(artists);
+            }
+
+            @Override
+            public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public interface CreatCountryView{
+        void CreatCountrySuccess(BaseJson ba);
+    }
+
+    public interface GetCountryView{
+        void GetCountrySuccess(List<Country> countries);
+    }
+
+    public void creatCountry(String name , String banner ,CreatCountryView creatCountryView){
+        Call<BaseJson> baseJsonCall = ApiClient.apiList.addCountry(name, banner) ;
+        baseJsonCall.enqueue(new Callback<BaseJson>() {
+            @Override
+            public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
+                creatCountryView.CreatCountrySuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BaseJson> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public void getCountry(GetCountryView view){
+        Call<List<BaseListJson>> jsonCall = ApiClient.apiList.getCountryList();
+        jsonCall.enqueue(new Callback<List<BaseListJson>>() {
+            @Override
+            public void onResponse(Call<List<BaseListJson>> call, Response<List<BaseListJson>> response) {
+                List<BaseListJson> jsons = response.body();
+                List<Country> countries = new ArrayList<>();
+                if (jsons != null){
+                    for (int i = 0; i < jsons.size(); i++) {
+                        Country country = mGson.fromJson(jsons.get(i).getFields().toString(),Country.class);
+                        countries.add(country);
+                    }
+                }
+                view.GetCountrySuccess(countries);
+            }
+
+            @Override
+            public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ",t);
             }
         });

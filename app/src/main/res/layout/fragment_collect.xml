@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:background="@color/black_red"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/srl_main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:textSize="100dp"
-        android:text="4"
-        android:textColor="@color/white"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/black_red">
 
-    <ImageView
-        android:id="@+id/iv_sys"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="100dp"
-        android:background="@color/colorPrimary"
-        android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="4"
+            android:textColor="@color/white"
+            android:textSize="100dp" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_sys"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
