@@ -106,6 +106,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 selectCollect();
                 viewPager.setCurrentItem(3);
                 break;
+                default:
         }
     }
 
