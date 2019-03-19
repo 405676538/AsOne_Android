@@ -61,5 +61,6 @@
     <color name="gray_bf">#bfbfbf</color>
     <color name="black_home_icon">#2d1e1e</color>
     <color name="black_red">#140e0e</color>
+    <color name="black_red_toolbar">#160d0d</color>
 
 </resources>

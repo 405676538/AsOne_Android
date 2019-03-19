@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/srl_main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/black_red"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_red"
-        android:orientation="vertical">
-
-        <include layout="@layout/include_top_bar_all"/>
+        android:layout_height="match_parent">
 
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center_vertical"
-            android:text="顶部展示新上传的作品"
-            android:textColor="@color/white"
-            android:textSize="22dp" />
+            android:layout_height="match_parent"
+            android:background="@color/black_red"
+            android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <include layout="@layout/include_top_bar_all" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:text="顶部展示新上传的作品"
+                android:textColor="@color/white"
+                android:textSize="22dp" />
+
+            <com.example.asone_android.activity.view.ChangeRecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </android.support.v4.widget.SwipeRefreshLayout>

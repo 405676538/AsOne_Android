@@ -2,6 +2,7 @@ package com.example.asone_android.activity.fragment
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.example.asone_android.Base.BaseFragment
 import com.example.asone_android.R
 import com.example.asone_android.adapter.HouseAdapter
@@ -29,9 +30,11 @@ class HomeFragment: BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefre
     override fun initView() {
         tv_left.text = "主页"
 
-        recyclerview.layoutManager = LinearLayoutManager(mContext)
+        recyclerview.layoutManager = LinearLayoutManager(mContext,RecyclerView.HORIZONTAL,false)
         houseAdapter = HouseAdapter(mContext,R.layout.item_house,houseList)
         recyclerview.adapter = houseAdapter
+        recyclerview.setHasFixedSize(true)
+        recyclerview.isNestedScrollingEnabled = false
         onRefresh()
         srl_main.setOnRefreshListener(this)
     }
