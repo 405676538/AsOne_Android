@@ -16,12 +16,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <include layout="@layout/include_top_bar_all"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:gravity="center_vertical"
                 android:text="顶部展示热门UP分类"

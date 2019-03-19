@@ -12,6 +12,7 @@ import com.example.asone_android.bean.Artist
 import com.example.asone_android.bean.Country
 import com.example.asone_android.net.MusicPresenter
 import kotlinx.android.synthetic.main.fragment_people.*
+import kotlinx.android.synthetic.main.include_top_bar_all.*
 
 class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, MusicPresenter.GetArtistView, MusicPresenter.GetCountryView {
 
@@ -41,7 +42,7 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
     }
 
     override fun initView() {
-
+        tv_left.text = "艺术家"
     }
 
     override fun onRefresh() {

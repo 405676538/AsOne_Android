@@ -12,6 +12,7 @@ import com.example.asone_android.bean.Music;
 import com.example.asone_android.bean.MusicAlbum;
 import com.example.asone_android.bean.MusicAlbumInfo;
 import com.example.asone_android.bean.MusicFieldInfo;
+import com.example.asone_android.bean.Sound;
 import com.example.asone_android.bean.UpLoad;
 import com.google.gson.Gson;
 
@@ -267,6 +268,53 @@ public class MusicPresenter {
             @Override
             public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+
+    public interface CreatSoundTypeView{
+        void creatSoundTypeSuccess(BaseJson baseJson);
+    }
+
+    public interface GetSoundTypeView{
+        void getSoundTypoeSuccess(List<Sound> sounds);
+    }
+
+    public void creatSoundType(String name,String imgUrl,CreatSoundTypeView creatSoundTypeView){
+        Call<BaseJson> baseJsonCall = ApiClient.apiList.creatSoundType(name, imgUrl) ;
+        baseJsonCall.enqueue(new Callback<BaseJson>() {
+            @Override
+            public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
+                creatSoundTypeView.creatSoundTypeSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BaseJson> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public void getSoundTypeList(GetSoundTypeView getSoundTypeView){
+        Call<List<BaseListJson>> call = ApiClient.apiList.getSoundType();
+        call.enqueue(new Callback<List<BaseListJson>>() {
+            @Override
+            public void onResponse(Call<List<BaseListJson>> call, Response<List<BaseListJson>> response) {
+                List<BaseListJson> baseListJsons = response.body();
+                List<Sound> sounds = new ArrayList<>();
+                if (baseListJsons != null) {
+                    for (int i = 0; i < baseListJsons.size(); i++) {
+                        Sound sound = mGson.fromJson(baseListJsons.get(i).getFields().toString(),Sound.class);
+                        sounds.add(sound);
+                    }
+                }
+                getSoundTypeView.getSoundTypoeSuccess(sounds);
+            }
+
+            @Override
+            public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
+
             }
         });
     }

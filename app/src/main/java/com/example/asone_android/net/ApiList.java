@@ -68,4 +68,13 @@ public interface ApiList {
     /** 获取国家列表 */
     @GET("/country")
     Call<List<BaseListJson>> getCountryList();
+
+    /** 获取声音种类 */
+    @GET("/sound")
+    Call<List<BaseListJson>> getSoundType();
+
+    /** 新建声音 */
+    @POST("/sound")
+    @FormUrlEncoded
+    Call<BaseJson> creatSoundType(@Field("name")String name,@Field("imgUrl")String imgUrl);
 }

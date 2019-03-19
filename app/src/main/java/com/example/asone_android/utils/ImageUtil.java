@@ -37,9 +37,9 @@ public class ImageUtil {
         }
     }
 
-    public static void GlidegetRoundFourImage(String url, final ImageView imageView) {
+    public static void GlidegetRoundFourImage(String url, final ImageView imageView,int roundRadius) {
         if (Util.isOnMainThread()) {
-            RoundedCorners roundedCorners = new RoundedCorners(10);
+            RoundedCorners roundedCorners = new RoundedCorners(roundRadius);
             RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
             Glide.with(BaseApplication.getAppContext()).load(url).apply(options).into(imageView);
         }

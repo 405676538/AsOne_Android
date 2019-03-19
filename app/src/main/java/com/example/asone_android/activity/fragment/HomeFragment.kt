@@ -9,6 +9,7 @@ import com.example.asone_android.bean.MusicAlbum
 import com.example.asone_android.bean.MusicAlbumInfo
 import com.example.asone_android.net.MusicPresenter
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.include_top_bar_all.*
 
 class HomeFragment: BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefreshLayout.OnRefreshListener {
 
@@ -26,6 +27,8 @@ class HomeFragment: BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefre
     }
 
     override fun initView() {
+        tv_left.text = "主页"
+
         recyclerview.layoutManager = LinearLayoutManager(mContext)
         houseAdapter = HouseAdapter(mContext,R.layout.item_house,houseList)
         recyclerview.adapter = houseAdapter

@@ -141,6 +141,51 @@
             android:layout_height="wrap_content"
             android:text="上传国家" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:text="-------------------分割线---------------------"
+            android:layout_height="20dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_show_sound_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:hint="显示声音种类id"
+                android:textColor="@color/black"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/btn_select_sound_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择banner" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_type_sound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@null"
+            android:layout_marginBottom="15dp"
+            android:hint="输入种类名称"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/btn_upload_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传声音种类" />
+
     </LinearLayout>
 
 </ScrollView>

@@ -12,7 +12,7 @@ import com.example.asone_android.utils.FileUtils
 import kotlinx.android.synthetic.main.activity_add_artist.*
 import java.io.File
 
-class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatArtistView, MusicPresenter.CreatCountryView {
+class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatArtistView, MusicPresenter.CreatCountryView, MusicPresenter.CreatSoundTypeView {
 
 
     var presenter = MusicPresenter()
@@ -27,9 +27,12 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
     var country = ""
     var commend = "否" //是否推荐
 
-    /** ------------以下参数添加国家 ----------- */
+    /** ------------以下参数添加国家  声音种类----------- */
     var countryImg = ""
     var countryName = ""
+
+    var soundImg = ""
+    var soundName = ""
 
     override fun getLayout(): Int {
         return R.layout.activity_add_artist
@@ -42,6 +45,10 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
 
         btn_select_country_img.setOnClickListener {
             FileUtils.chooseFile(this, FileUtils.CHOOSE_COUNTRY_CODE)
+        }
+
+        btn_select_sound_img.setOnClickListener {
+            FileUtils.chooseFile(this, FileUtils.CHOOSE_SOUND_CODE)
         }
 
         tv_select_six.setOnClickListener {
@@ -73,6 +80,11 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
             presenter.creatCountry(countryName,countryImg,this)
         }
 
+        btn_upload_sound.setOnClickListener {
+            soundName = et_type_sound.text.toString()
+            presenter.creatSoundType(soundName,soundImg,this)
+        }
+
     }
 
     override fun initView() {
@@ -87,7 +99,7 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == FileUtils.CHOOSE_FILE_CODE || requestCode == FileUtils.CHOOSE_COUNTRY_CODE) {
+        if (requestCode == FileUtils.CHOOSE_FILE_CODE || requestCode == FileUtils.CHOOSE_COUNTRY_CODE || requestCode == FileUtils.CHOOSE_SOUND_CODE) {
             if (data != null) {
                 val path = FileUtils.getAbsoluteImagePath(this, data.data)
                 var file = File(path)
@@ -111,6 +123,11 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
             tv_show_country_id.text = id
             countryImg = id!!
         }
+
+        if (type == FileUtils.CHOOSE_SOUND_CODE){
+            tv_show_sound_id.text = id
+            soundImg = id!!
+        }
     }
 
     override fun creatArtistSuccess(s: String?) {
@@ -119,6 +136,10 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
 
     override fun CreatCountrySuccess(ba: BaseJson?) {
         showShortToast(ba?.msg)
+    }
+
+    override fun creatSoundTypeSuccess(baseJson: BaseJson?) {
+        showShortToast(baseJson?.msg)
     }
 
 

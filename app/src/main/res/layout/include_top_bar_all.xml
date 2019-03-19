@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="75dp"
     android:id="@+id/rl_main_toolbar"
+    android:translationZ="20dp"
     android:background="@color/black_red"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -13,9 +14,8 @@
         tools:something="左边"
         android:layout_marginTop="35dp"
         android:layout_marginStart="10dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="match_parent" />
 
 
@@ -25,6 +25,7 @@
         tools:something="中间"
         android:layout_marginTop="35dp"
         android:gravity="center"
+        android:visibility="gone"
         android:textColor="@android:color/white"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
