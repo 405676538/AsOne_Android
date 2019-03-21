@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ApiClient {
     private static final String TAG = "ApiClient";
-    public static final String baseUrl = "http://192.168.1.110:8000";
+    public static final String baseUrl = "http://192.168.100.64:8000";
 
 
     public static ApiList apiList; //普通的接口
