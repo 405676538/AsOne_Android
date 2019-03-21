@@ -33,35 +33,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <ImageView
+                android:alpha="0.7"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:src="@mipmap/add_collect"
+                android:layout_height="wrap_content" />
+
             <TextView
-                android:layout_width="20dp"
-                android:layout_height="800dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:gravity="center_vertical"
-                android:text="顶
-                部
-                展
-                示
-                新
-                上
-                传
-                的
-                作
-                作
-                作
-                作
-                作
-                作
-                作
-                作
-                作
-                作
-                作
-                作
-                作
-                作
-                品"
+                android:text="点击上方按钮添加您喜欢的艺术家"
                 android:textColor="@color/white"
                 android:textSize="22dp" />
 

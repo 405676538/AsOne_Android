@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.asone_android.app.Constant;
 import com.example.asone_android.bean.EventBusMessage;
+import com.umeng.message.PushAgent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         EasyPermissions.requestPermissions(this,"q", 7, Constant.sPermissionsArray);
         mContext = this;
         EventBus.getDefault().register(this);
+        PushAgent.getInstance(mContext).onAppStart();
         initView();
         initData();
     }
