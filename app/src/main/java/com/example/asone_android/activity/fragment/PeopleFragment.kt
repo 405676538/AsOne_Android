@@ -10,9 +10,11 @@ import com.example.asone_android.adapter.ArtistAdapter
 import com.example.asone_android.adapter.CountryAdapter
 import com.example.asone_android.bean.Artist
 import com.example.asone_android.bean.Country
+import com.example.asone_android.bean.EventBusMessage
 import com.example.asone_android.net.MusicPresenter
 import kotlinx.android.synthetic.main.fragment_people.*
 import kotlinx.android.synthetic.main.include_top_bar_all.*
+import org.greenrobot.eventbus.EventBus
 
 class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, MusicPresenter.GetArtistView, MusicPresenter.GetCountryView {
 
@@ -43,6 +45,9 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
 
     override fun initView() {
         tv_left.text = "艺术家"
+        tv_show_all.setOnClickListener {
+            EventBus.getDefault().post(EventBusMessage(EventBusMessage.ADD_ALL_ARTIST_FRAGMENT))
+        }
     }
 
     override fun onRefresh() {

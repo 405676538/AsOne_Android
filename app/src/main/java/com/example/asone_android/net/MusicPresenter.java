@@ -1,20 +1,28 @@
 package com.example.asone_android.net;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.asone_android.Base.BaseJson;
+import com.example.asone_android.activity.fragment.CollectFragment;
 import com.example.asone_android.app.BaseApplication;
 import com.example.asone_android.bean.Artist;
 import com.example.asone_android.bean.BaseListJson;
+import com.example.asone_android.bean.CollectInfo;
 import com.example.asone_android.bean.Country;
+import com.example.asone_android.bean.EventBusMessage;
 import com.example.asone_android.bean.Music;
 import com.example.asone_android.bean.MusicAlbum;
 import com.example.asone_android.bean.MusicAlbumInfo;
 import com.example.asone_android.bean.MusicFieldInfo;
 import com.example.asone_android.bean.Sound;
 import com.example.asone_android.bean.UpLoad;
+import com.example.asone_android.utils.ACache;
+import com.example.asone_android.utils.AppUtils;
 import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -314,9 +322,109 @@ public class MusicPresenter {
 
             @Override
             public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
-
+                Log.e(TAG, "onFailure: ",t);
             }
         });
     }
+
+    /** 收藏 collect ---------------------------------- */
+
+    public interface GetCollectView{
+        void getCollectSuccess(List<CollectInfo> collectInfos);
+    }
+
+    private interface AddCollectView{
+        void addCollectSuccess(BaseJson baseJson);
+    }
+
+    private interface DeleteCollectView{
+        void deleteCollectSccess(BaseJson baseJson);
+    }
+
+    public void getCollect(GetCollectView getCollectView){
+        String userId = ACache.get().getAsString(ACache.TAG_USER_ID);
+        if (TextUtils.isEmpty(userId)){
+            AppUtils.goLogin();
+            return;
+        }
+        Call<List<BaseListJson>> call = ApiClient.apiList.getCollect();
+        call.enqueue(new Callback<List<BaseListJson>>() {
+            @Override
+            public void onResponse(Call<List<BaseListJson>> call, Response<List<BaseListJson>> response) {
+                List<BaseListJson> listJsons = response.body();
+                List<CollectInfo> list = new ArrayList<>();
+                for (int i = 0; i < listJsons.size(); i++) {
+                    CollectInfo info = mGson.fromJson(listJsons.get(i).getFields().toString(),CollectInfo.class);
+                    list.add(info);
+                }
+                getCollectView.getCollectSuccess(list);
+            }
+
+            @Override
+            public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public void addCollect(String upId,AddCollectView addCollectView){
+        String userId = ACache.get().getAsString(ACache.TAG_USER_ID);
+        if (TextUtils.isEmpty(userId)){
+            AppUtils.goLogin();
+            return;
+        }
+        Call<BaseJson> call = ApiClient.apiList.addCollect(userId,upId);
+        call.enqueue(new Callback<BaseJson>() {
+            @Override
+            public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
+                addCollectView.addCollectSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BaseJson> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public void deleteCollect(String upId,DeleteCollectView deleteCollectView){
+        String userId = ACache.get().getAsString(ACache.TAG_USER_ID);
+        if (TextUtils.isEmpty(userId)){
+            AppUtils.goLogin();
+            return;
+        }
+        Call<BaseJson> call = ApiClient.apiList.deleteCollect(userId,upId);
+        call.enqueue(new Callback<BaseJson>() {
+            @Override
+            public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
+                deleteCollectView.deleteCollectSccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BaseJson> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
+    public interface AddUserView{
+       void addUserSuccess(BaseJson baseJson);
+    }
+
+    public void addUser(String uid,String name,String head,AddUserView addUserView){
+        Call<BaseJson> call = ApiClient.apiList.addUser(uid,name,head);
+        call.enqueue(new Callback<BaseJson>() {
+            @Override
+            public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
+                addUserView.addUserSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BaseJson> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+            }
+        });
+    }
+
 
 }

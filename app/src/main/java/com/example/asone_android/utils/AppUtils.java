@@ -22,7 +22,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.asone_android.bean.EventBusMessage;
 import com.example.asone_android.net.ApiClient;
+import com.example.asone_android.view.LoadingDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -74,6 +78,9 @@ public class AppUtils {
     }
 
 
+    public static void goLogin(){
+        EventBus.getDefault().post(new EventBusMessage(EventBusMessage.SHOW_NO_LOGIN));
+    }
 
 
 
@@ -115,6 +122,17 @@ public class AppUtils {
 //                .build();
 //        return request;
 //    }
+
+    public static LoadingDialog showCricleDialog(Context context) {
+        LoadingDialog dialog = new LoadingDialog.Builder(context).create();
+        dialog.show();
+        return dialog;
+    }
+
+    public static LoadingDialog getCricleDialog(Context context) {
+        return new LoadingDialog.Builder(context).create();
+    }
+
 
     /**
      * 根据手机分辨率从DP转成PX

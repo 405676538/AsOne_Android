@@ -15,9 +15,11 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -77,4 +79,21 @@ public interface ApiList {
     @POST("/sound")
     @FormUrlEncoded
     Call<BaseJson> creatSoundType(@Field("name")String name,@Field("imgUrl")String imgUrl);
+
+    /** 收藏 取消 收藏 */
+    @POST("/collect")
+    @FormUrlEncoded
+    Call<BaseJson> addCollect(@Field("userId")String userId,@Field("upId")String upId);
+
+    @GET("/collect")
+    Call<List<BaseListJson>> getCollect();
+
+    @DELETE("/collect")
+    Call<BaseJson> deleteCollect(@Query("userId")String userId,@Query("upId")String upId);
+
+    /** 用户表 */
+    @POST("/user")
+    @FormUrlEncoded
+    Call<BaseJson> addUser(@Field("uid")String uid,@Field("name")String name,@Field("head")String head);
+
 }

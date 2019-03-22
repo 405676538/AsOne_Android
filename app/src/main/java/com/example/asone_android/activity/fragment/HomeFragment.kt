@@ -3,16 +3,21 @@ package com.example.asone_android.activity.fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.example.asone_android.Base.BaseFragment
 import com.example.asone_android.R
 import com.example.asone_android.adapter.HouseAdapter
+import com.example.asone_android.app.Constant
+import com.example.asone_android.bean.EventBusMessage
 import com.example.asone_android.bean.MusicAlbum
 import com.example.asone_android.bean.MusicAlbumInfo
 import com.example.asone_android.net.MusicPresenter
+import com.example.asone_android.utils.ACache
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_top_bar_all.*
+import org.greenrobot.eventbus.EventBus
 
 class HomeFragment: BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefreshLayout.OnRefreshListener {
 val TAG = "HomeFragment"
@@ -54,6 +59,13 @@ val TAG = "HomeFragment"
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
+        add_select.setOnClickListener {
+            if (TextUtils.isEmpty(ACache.get().getAsString(ACache.TAG_USER_ID))){
+                EventBus.getDefault().post(EventBusMessage(EventBusMessage.SHOW_NO_LOGIN)) //登录
+            }else{
+                EventBus.getDefault().post(EventBusMessage(EventBusMessage.ADD_ALL_ARTIST_FRAGMENT)) //添加所有up fragment页面
+            }
+        }
     }
 
     override fun onRefresh() {

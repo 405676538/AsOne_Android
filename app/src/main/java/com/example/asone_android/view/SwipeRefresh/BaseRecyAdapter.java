@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -23,6 +24,10 @@ public abstract  class BaseRecyAdapter extends RecyclerView.Adapter<BaseRecyAdap
     public BaseRecyAdapter(Context context, int layoutId) {
         this.mContext = context;
         this.layoutId = layoutId;
+    }
+
+    public void showToast(String s){
+        Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
     }
 
     public View onBaseCreateViewHolder(ViewGroup parent, Context context, int layoutId){

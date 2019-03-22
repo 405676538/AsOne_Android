@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,16 +13,19 @@ import android.widget.TextView;
 
 import com.example.asone_android.Base.BaseActivity;
 import com.example.asone_android.R;
+import com.example.asone_android.activity.fragment.AllArtistFragment;
 import com.example.asone_android.activity.fragment.CollectFragment;
 import com.example.asone_android.activity.fragment.HomeFragment;
 import com.example.asone_android.activity.fragment.PeopleFragment;
 import com.example.asone_android.activity.fragment.VoiceFragment;
+import com.example.asone_android.app.Constant;
+import com.example.asone_android.bean.EventBusMessage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
-
+    private static final String TAG = "HomeActivity";
     private ViewPager viewPager;
     private LinearLayout mLlHome, mLlPeople, mLlVoice, mLlCollect;
     private ImageView mIvHome, mIvPeople, mIvVoice, mIvCollect;
@@ -106,7 +110,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 selectCollect();
                 viewPager.setCurrentItem(3);
                 break;
-                default:
+            default:
         }
     }
 
@@ -142,6 +146,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onPageSelected(int i) {
+        removeAllFragment();
         switch (i) {
             case 0:
                 selectHome();
@@ -177,6 +182,29 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         @Override
         public int getCount() {
             return mFragmentList.size();
+        }
+    }
+
+    @Override
+    public void onEventMainThread(EventBusMessage eventBusMessage) {
+        super.onEventMainThread(eventBusMessage);
+        if (eventBusMessage.getCode() == EventBusMessage.ADD_ALL_ARTIST_FRAGMENT) {
+            addAllArtistFragment();
+        }
+    }
+
+    private List<Fragment> fragments = new ArrayList<>();
+
+    public void addAllArtistFragment() {
+        AllArtistFragment fragment = new AllArtistFragment();
+        fragments.add(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.rl_fragment, fragment).addToBackStack("").commit();
+    }
+
+    public void removeAllFragment() {
+        for (Fragment fragment:fragments) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
     }
 }
