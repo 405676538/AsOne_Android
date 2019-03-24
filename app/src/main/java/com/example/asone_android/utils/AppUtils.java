@@ -2,9 +2,11 @@ package com.example.asone_android.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,6 +24,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.asone_android.app.Constant;
 import com.example.asone_android.bean.EventBusMessage;
 import com.example.asone_android.net.ApiClient;
 import com.example.asone_android.view.LoadingDialog;
@@ -85,43 +88,6 @@ public class AppUtils {
 
 
 
-    /** 登录失效功能，活的的Url时 需要的参数 **/
-//
-//    public static OkHttpClient getOkClient(){
-//        return new OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS).build();
-//    }
-//
-//    public static Request postOk3Request(Map<String,String> map, String url){
-//        Log.i(TAG, "postOk3Request: "+url);
-//        FormBody.Builder builder = new FormBody.Builder();
-//        for (String key : map.keySet()) {
-//            builder.add(key, map.get(key));
-//        }
-//        RequestBody formBody = builder.build();
-//        return new Request.Builder().url(url)
-//                .post(formBody)
-//                .build();
-//    }
-//
-//    public static Request getOk3Request(String url){
-//        Log.i(TAG, "postOk3Request: "+url);
-//        Request request = new Request.Builder().url(url)
-//                .get()
-//                .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-//                .build();
-//        return request;
-//    }
-//
-//    public static Request getOk3Request(String url, String token){
-//        Log.i(TAG, "postOk3Request: "+url);
-//        Request request = new Request.Builder().url(url)
-//                .get()
-//                .addHeader(Constant.APP_TOKEN,
-//                        SpHelper.getInstance().getToken())
-//                .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-//                .build();
-//        return request;
-//    }
 
     public static LoadingDialog showCricleDialog(Context context) {
         LoadingDialog dialog = new LoadingDialog.Builder(context).create();
@@ -345,71 +311,12 @@ public class AppUtils {
     }
 
 
-    /**
-     * 直接获取联系人列表
-     */
-    //读取手机里面的联系人
-    public static List<Map<String, String>> getContactInfo(Activity activity) {
-        //吧所有联系人填进去
-        List<Map<String, String>> list = new ArrayList<>();
-        ContentResolver resolver = activity.getContentResolver();
-        String data = "content://com.android.contacts/raw_contacts/data";
-        Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-        Uri uridata = Uri.parse(data);
-        @SuppressLint("Recycle") Cursor cursor = resolver.query(uri, new String[]{"contact_id"}, null, null, null);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                String contact_id = cursor.getString(0);
-                if (contact_id != null) {
-                    //具体的某一个联系人
-                    Map<String, String> map = new HashMap<>();
-                    Cursor datacursor = resolver.query
-                            (uridata, new String[]{"data1", "mimetype"}, "contact_id=?", new String[]{contact_id}, null);
-                    if (datacursor != null) {
-                        while (datacursor.moveToNext()) {
-                            String data1 = datacursor.getString(0);
-                            String mimetype = datacursor.getString(1);
-                            if ("vnd.android.cursor.item/name".equals(mimetype)) {
-                                //联系人的姓名
-                                map.put("name", data1);
-                            } else if ("vnd.android.cursor.item/phone_v2".equals(mimetype)) {
-                                //联系人的电话号码
-                                map.put("phone", data1);
-                            }
-
-                        }
-                    }
-                    list.add(map);
-                    if (datacursor != null) {
-                        datacursor.close();
-                    }
-                }
-            }
-        }
-
-        return list;
-    }
-
     // 号码
     public final static String NUM = ContactsContract.CommonDataKinds.Phone.NUMBER;
     // 联系人姓名
     public final static String NAME = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
     //联系人提供者的uri
     private static Uri phoneUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-
-
-
-    public static int getColor(int id, Context context) {
-        return ContextCompat.getColor(context, id);
-    }
-
-    /**
-     * 61      * 判断当前应用在桌面是否有桌面快捷方式
-     * 62      *
-     * 63      * @param context
-     * 64
-     */
-
 
 
 
@@ -639,6 +546,22 @@ public class AppUtils {
             result = Mac;
         }
         return result;
+    }
+
+    public interface DialogView{
+        void dialogYes();
+    }
+
+    public static AlertDialog.Builder showDialog(Context context,DialogView dialogView){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("更新");
+        builder.setMessage("有新版本是否更新?");
+        builder.setPositiveButton("是", (dialog, which) -> dialogView.dialogYes());
+        builder.setNegativeButton("取消", (dialog, which) -> {
+            ACache.get().put(Constant.LastVersionCheckTime,System.currentTimeMillis());
+        });
+        builder.create();
+        return builder;
     }
 
     private static String callCmd(String cmd, String filter) {

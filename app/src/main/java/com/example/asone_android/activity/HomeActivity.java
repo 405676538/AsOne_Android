@@ -1,5 +1,7 @@
 package com.example.asone_android.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,18 +18,24 @@ import com.example.asone_android.R;
 import com.example.asone_android.activity.fragment.AllArtistFragment;
 import com.example.asone_android.activity.fragment.AllHouseFragment;
 import com.example.asone_android.activity.fragment.CollectFragment;
+import com.example.asone_android.activity.fragment.DisclaimerFragment;
 import com.example.asone_android.activity.fragment.HomeFragment;
 import com.example.asone_android.activity.fragment.PeopleFragment;
 import com.example.asone_android.activity.fragment.VoiceFragment;
 import com.example.asone_android.app.Constant;
 import com.example.asone_android.bean.EventBusMessage;
+import com.example.asone_android.bean.VersionInfo;
+import com.example.asone_android.net.MusicPresenter;
+import com.example.asone_android.utils.AppUtils;
+import com.example.asone_android.utils.PhoneUtil;
+import com.example.asone_android.utils.version.VersionUpdataHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, MusicPresenter.GetBVersionView {
     private static final String TAG = "HomeActivity";
     private ViewPager viewPager;
     private LinearLayout mLlHome, mLlPeople, mLlVoice, mLlCollect;
@@ -40,6 +48,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private CollectFragment collectFragment = new CollectFragment();
     List<Fragment> mFragmentList = new ArrayList<>();
     FragmentAdapter mFragmentAdapter;
+    MusicPresenter mMusicPresenter = new MusicPresenter();
 
 
     @Override
@@ -57,6 +66,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mFragmentAdapter);
         viewPager.addOnPageChangeListener(this);
+        mMusicPresenter.getVersionInfo(this);
     }
 
     @Override
@@ -165,13 +175,35 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 removeAllFragment();
                 selectCollect();
                 break;
-                default:
+            default:
         }
     }
 
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    @Override
+    public void getVersionSuccess(VersionInfo versionInfo) {
+        int localCode = PhoneUtil.getVersion(mContext);
+        int neCode = versionInfo.getVersionCode();
+        if (neCode > localCode) {
+            AlertDialog.Builder builder = AppUtils.showDialog(this, () -> download(versionInfo));
+            builder.show();
+        }
+    }
+
+    @Override
+    public void versionFails() {
+    }
+
+    void download(VersionInfo versionInfo) {
+        if (checkPermission(Constant.sPermissionsArray[4], Constant.sPermissionsArray[5])) {
+            new VersionUpdataHelper((Activity) mContext, AppUtils.getDownLoadFileUrl(versionInfo.getApkId()), true, "");
+        } else {
+            showShortToast(getString(R.string.storage_permission_not_has_tip));
+        }
     }
 
     private class FragmentAdapter extends FragmentPagerAdapter {
@@ -200,12 +232,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (eventBusMessage.getCode() == EventBusMessage.ADD_ALL_HOUSE_FRAGMENT) {
             addAllHouseFragment();
         }
+        if (eventBusMessage.getCode() == EventBusMessage.ADD_DISCLAIMER) {
+            addDisclaimerFragment();
+        }
     }
 
     private List<Fragment> fragments = new ArrayList<>();
 
     public void addAllArtistFragment() {
         AllArtistFragment fragment = new AllArtistFragment();
+        fragments.add(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.rl_fragment, fragment).addToBackStack("").commit();
+    }
+
+    public void addDisclaimerFragment() {
+        DisclaimerFragment fragment = new DisclaimerFragment();
         fragments.add(fragment);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.rl_fragment, fragment).addToBackStack("").commit();
@@ -220,7 +262,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     public void removeAllFragment() {
         EventBus.getDefault().post(new EventBusMessage(EventBusMessage.CAN_SCALL_HOME));
-        for (Fragment fragment:fragments) {
+        for (Fragment fragment : fragments) {
             Log.i(TAG, "removeAllFragment: ");
             getSupportFragmentManager().popBackStack();
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();

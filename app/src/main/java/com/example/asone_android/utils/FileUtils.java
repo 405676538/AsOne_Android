@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,7 +24,47 @@ public class FileUtils {
     public static final int CHOOSE_COUNTRY_CODE = 129;
     public static final int CHOOSE_SOUND_CODE = 130;
 
+    /**
+     * 删除文件
+     *
+     * @param file 文件
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFile(File file) {
+        return file != null && (!file.exists() || file.isFile() && file.delete());
+    }
 
+    /**
+     * 删除文件
+     *
+     * @param srcFilePath 文件路径
+     * @return {@code true}: 删除成功<br>{@code false}: 删除失败
+     */
+    public static boolean deleteFile(String srcFilePath) {
+        return deleteFile(getFileByPath(srcFilePath));
+    }
+
+    /**
+     * 根据文件路径获取文件
+     *
+     * @param filePath 文件路径
+     * @return 文件
+     */
+    public static File getFileByPath(String filePath) {
+        return isSpace(filePath) ? null : new File(filePath);
+    }
+
+    private static boolean isSpace(String s) {
+        if (s == null) {
+            return true;
+        }
+        for (int i = 0, len = s.length(); i < len; ++i) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     // 调用系统文件管理器
     public static void chooseFile(Activity context,int requestCode) {

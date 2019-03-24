@@ -1,31 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/srl_main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black_red"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <include layout="@layout/include_top_bar_all" />
+
+    <LinearLayout
+        android:id="@+id/ll_disclaimer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_red">
-
-        <include layout="@layout/include_top_bar_all"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_height="50dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="4"
+            android:id="@+id/tv_disclaimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical|bottom"
+            android:text="侵权投诉（免责声明）"
             android:textColor="@color/white"
-            android:textSize="100dp" />
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <ImageView
-            android:id="@+id/iv_sys"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary" />
+            android:layout_width="wrap_content"
+            android:src="@mipmap/comein"
+            android:layout_height="30dp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+    <LinearLayout
+        android:id="@+id/ll_version"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical|bottom"
+            android:text="软件版本"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical|bottom"
+            android:text="软件版本"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_version_up"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical|bottom"
+            android:text="版本更新"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@mipmap/comein"
+            android:layout_height="30dp" />
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/iv_sys"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary" />
+
+</LinearLayout>
+

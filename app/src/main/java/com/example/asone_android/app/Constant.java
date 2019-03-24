@@ -14,6 +14,8 @@ public class Constant {
     public static final String RESULT_FILE_PATH = "result_file_path";
     public static final int HANDLE_CLICK_DELAY = 150;
     public static final String JAVASCRIPT_ANDROID_TAG = "android";
+    public static final String VERSION_STATUS = "VERSION_STATUS";
+    public static final String LastVersionCheckTime = "LastVersionCheckTime";
 
     public static final String[] sPermissionsArray = {
             Manifest.permission.CAMERA,

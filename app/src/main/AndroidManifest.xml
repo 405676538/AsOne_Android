@@ -70,7 +70,7 @@
         <activity android:name=".activity.system_activity.ChangeHouseActivity"/>
         <activity android:name=".activity.system_activity.SystemHomeActivity"/>
         <activity android:name=".activity.system_activity.AddArtistActivity"/>
-        <activity
+        <activity android:name=".activity.system_activity.VersionUpActivity"/><activity
             android:name=".activity.HomeActivity"
             android:theme="@style/TranslucentTheme">
             <intent-filter>

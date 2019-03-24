@@ -97,4 +97,12 @@ public interface ApiList {
     @FormUrlEncoded
     Call<BaseJson> addUser(@Field("uid")String uid,@Field("name")String name,@Field("head")String head);
 
+    /** 获取版本信息 */
+    @GET("/version")
+    Call<List<BaseListJson>>  getVersion();
+
+    /** 上传新版本 */
+    @POST("/version")
+    @FormUrlEncoded
+    Call<BaseJson> addVersion(@Field("versionCode")String versionCode,@Field("apkId")String apkId);
 }

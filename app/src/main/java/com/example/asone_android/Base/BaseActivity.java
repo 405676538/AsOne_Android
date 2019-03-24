@@ -125,6 +125,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected boolean checkPermission(String... permissions) {
+        if (permissions.length == 0) {
+            return EasyPermissions.hasPermissions(this, Constant.sPermissionsArray);
+        } else {
+            return EasyPermissions.hasPermissions(this, permissions);
+        }
+    }
+
     public void login(SHARE_MEDIA share_media){
         UMShareAPI api = UMShareAPI.get(this);
         api.getPlatformInfo(this,share_media, new UMAuthListener() {

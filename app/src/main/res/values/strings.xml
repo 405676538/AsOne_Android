@@ -6,4 +6,13 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="disclaimer">ASMR倾听(以下简称本软件)所有音频内容均系通过我们搜索引擎技术从第三方站点搜索所得，
+        我们不存储，不修改音频内容，音频数据流也不经由本公司服务器中转或存储，所有音频内容均归原版权方所有。
+        \n\n 本软件十分重视网络版权及其他知识产权的保护，任何单位或个人认为本软件聚合到的第三方网站所呈现的内容可能涉嫌侵犯其他信息网络
+    传播权或其他权利的。应及时以书面或邮件的方式通知本软件并提供相关权属证明，本软件将在收到前述文件并审查后，依法尽快断开相关链接内容
+
+    \n\n 本软件联系方式\n
+    405676538@qq.com</string>
+    <string name="storage_permission_not_has_tip">未授权存储权限，会影响版本更新等功能，建议立即授权</string>
+
 </resources>

@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.asone_android.app.Constant;
 import com.example.asone_android.bean.EventBusMessage;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 public abstract class BaseFragment extends Fragment {
@@ -81,5 +84,13 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    protected boolean checkPermission(String... permissions) {
+        if (permissions.length == 0) {
+            return EasyPermissions.hasPermissions(mContext, Constant.sPermissionsArray);
+        } else {
+            return EasyPermissions.hasPermissions(mContext, permissions);
+        }
     }
 }

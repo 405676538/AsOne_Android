@@ -34,6 +34,7 @@ class SystemHomeActivity : BaseActivity() {
         modeList.add("分享")
         modeList.add("登录")
         modeList.add("推送")
+        modeList.add("版本更新")
         recyclerview.layoutManager = GridLayoutManager(this, 3)
         var adapter = SystemModeAdapter(this, R.layout.item_system_mode, modeList)
         recyclerview.adapter = adapter
@@ -78,6 +79,9 @@ class SystemHomeActivity : BaseActivity() {
                     sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
                     sendIntent.setType("text/plain");
                     startActivity(Intent.createChooser(sendIntent, "Share to..."))
+                }
+                "版本更新"->{
+                    startActivity(Intent(this,VersionUpActivity::class.java))
                 }
             }
 

@@ -19,6 +19,7 @@ import com.example.asone_android.bean.MusicAlbumInfo;
 import com.example.asone_android.bean.MusicFieldInfo;
 import com.example.asone_android.bean.Sound;
 import com.example.asone_android.bean.UpLoad;
+import com.example.asone_android.bean.VersionInfo;
 import com.example.asone_android.utils.ACache;
 import com.example.asone_android.utils.AppUtils;
 import com.google.gson.Gson;
@@ -242,7 +243,6 @@ public class MusicPresenter {
                         if (collectId.equals(artId) && !TextUtils.isEmpty(artId)){
                             coleList.add(artists.get(i));
                             artists.get(i).setCollect(true);
-                            Log.i(TAG, "onResponse: 添加一个收藏");
                         }
                     }
                 }
@@ -448,5 +448,50 @@ public class MusicPresenter {
         });
     }
 
+    public interface GetBVersionView{
+        void getVersionSuccess(VersionInfo versionInfo);
+        void versionFails();
+    }
+
+    public interface AddVersionView{
+        void addVsersionSuccess(BaseJson baseJson);
+    }
+
+    public void getVersionInfo(GetBVersionView getBVersionView){
+        Call<List<BaseListJson>> call = ApiClient.apiList.getVersion();
+        call.enqueue(new Callback<List<BaseListJson>>() {
+            @Override
+            public void onResponse(Call<List<BaseListJson>> call, Response<List<BaseListJson>> response) {
+                List<BaseListJson> listJsons = response.body();
+                VersionInfo info = null;
+                if (listJsons != null && listJsons.size() > 0 ) {
+                    info = mGson.fromJson(listJsons.get(listJsons.size()-1).getFields().toString(), VersionInfo.class);
+                    Log.i(TAG, "onResponse: "+info.toString());
+                }
+                getBVersionView.getVersionSuccess(info);
+            }
+
+            @Override
+            public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ",t);
+                getBVersionView.versionFails();
+            }
+        });
+    }
+
+    public void addVersion(String versionCode,String apkId,AddVersionView addVersionView){
+        Call<BaseJson> call = ApiClient.apiList.addVersion(versionCode, apkId);
+        call.enqueue(new Callback<BaseJson>() {
+            @Override
+            public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
+                addVersionView.addVsersionSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BaseJson> call, Throwable t) {
+
+            }
+        });
+    }
 
 }
