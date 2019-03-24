@@ -30,7 +30,7 @@ class AllArtistFragment:BaseFragment(), MusicPresenter.GetArtistView {
         presenter.getArtistList(this)
     }
 
-    override fun getArtistSuccess(artists: MutableList<Artist>?) {
+    override fun getArtistSuccess(artists: MutableList<Artist>?,collects: MutableList<Artist>?) {
         artists?.let {
             artList.clear()
             artList.addAll(artists)

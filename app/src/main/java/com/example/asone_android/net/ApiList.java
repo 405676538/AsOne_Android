@@ -1,6 +1,7 @@
 package com.example.asone_android.net;
 
 import com.example.asone_android.Base.BaseJson;
+import com.example.asone_android.bean.AllCollectArt;
 import com.example.asone_android.bean.BaseListJson;
 import com.example.asone_android.bean.MusicAlbum;
 import com.example.asone_android.bean.MusicAlbumInfo;
@@ -60,7 +61,7 @@ public interface ApiList {
 
     /** 获取艺术家列表 */
     @GET("/artist")
-    Call<List<BaseListJson>> getArtistList();
+    Call<AllCollectArt> getArtistList();
 
     /** 创建国家 */
     @POST("/country")
@@ -81,14 +82,14 @@ public interface ApiList {
     Call<BaseJson> creatSoundType(@Field("name")String name,@Field("imgUrl")String imgUrl);
 
     /** 收藏 取消 收藏 */
-    @POST("/collect")
+    @POST("/user/collect/up")
     @FormUrlEncoded
     Call<BaseJson> addCollect(@Field("userId")String userId,@Field("upId")String upId);
 
-    @GET("/collect")
+    @GET("/user/collect/up")
     Call<List<BaseListJson>> getCollect();
 
-    @DELETE("/collect")
+    @DELETE("/user/collect/up")
     Call<BaseJson> deleteCollect(@Query("userId")String userId,@Query("upId")String upId);
 
     /** 用户表 */

@@ -3,6 +3,15 @@ package com.example.asone_android.Base;
 public class BaseJson {
     private String msg;
     private String id;
+    private String fileId;
+
+    public String getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
+    }
 
     public String getId() {
         return id;

@@ -12,6 +12,7 @@ import com.example.asone_android.bean.Artist
 import com.example.asone_android.bean.Country
 import com.example.asone_android.bean.EventBusMessage
 import com.example.asone_android.net.MusicPresenter
+import com.example.asone_android.view.ScrollLinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_people.*
 import kotlinx.android.synthetic.main.include_top_bar_all.*
 import org.greenrobot.eventbus.EventBus
@@ -31,14 +32,16 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
     }
 
     override fun initData() {
-        rcl_artist.layoutManager = GridLayoutManager(mContext,2)
+        rcl_artist.layoutManager = GridLayoutManager(mContext,3)
         artistAdapter = ArtistAdapter(mContext,R.layout.item_artist,artistList)
         rcl_artist.adapter = artistAdapter
+
 
         rcl_country.layoutManager = LinearLayoutManager(mContext)
         countryAdapter = CountryAdapter(mContext,R.layout.item_people_country,countryList)
         rcl_country.adapter = countryAdapter
-
+        rcl_country.setHasFixedSize(true)
+        rcl_country.isNestedScrollingEnabled = false
         srl_main.setOnRefreshListener(this)
         onRefresh()
     }
@@ -55,9 +58,14 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
         presenter.getCountry(this)
     }
 
-    override fun getArtistSuccess(artists: MutableList<Artist>?) {
+    override fun getArtistSuccess(artists: MutableList<Artist>?,collects: MutableList<Artist>?) {
         artistList.clear()
         artists?.let {
+            for (art in artists){
+                if (art.recommend == "否"){
+                    artists.remove(art)
+                }
+            }
             artistList.addAll(artists)
         }
         artistAdapter.notifyDataSetChanged()

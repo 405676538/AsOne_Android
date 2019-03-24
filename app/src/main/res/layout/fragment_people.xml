@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/black_red">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black_red">
@@ -21,13 +21,13 @@
             <TextView
                 android:id="@+id/tv_show_all"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|bottom"
                 android:text="以下展示热门(点击显示全部)"
                 android:textColor="@color/white"
-                android:textSize="22dp" />
+                android:textSize="18dp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rcl_artist"
@@ -37,14 +37,14 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:gravity="center_vertical"
+                android:gravity="center_vertical|bottom"
                 android:text="展示国家分类"
                 android:textColor="@color/white"
-                android:textSize="22dp" />
+                android:textSize="18dp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rcl_country"
@@ -54,7 +54,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
-
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.v4.widget.SwipeRefreshLayout>

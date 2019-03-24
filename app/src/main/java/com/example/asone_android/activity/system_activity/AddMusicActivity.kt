@@ -139,7 +139,7 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
         setnull()
     }
 
-    override fun getArtistSuccess(artists: MutableList<Artist>?) {
+    override fun getArtistSuccess(artists: MutableList<Artist>?,collects: MutableList<Artist>?) {
         var nameList = mutableListOf<String>()
         for (art in artists!!){
             nameList.add(art.name)

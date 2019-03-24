@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.example.asone_android.Base.BaseJson;
 import com.example.asone_android.activity.fragment.CollectFragment;
 import com.example.asone_android.app.BaseApplication;
+import com.example.asone_android.bean.AllCollectArt;
 import com.example.asone_android.bean.Artist;
 import com.example.asone_android.bean.BaseListJson;
 import com.example.asone_android.bean.CollectInfo;
@@ -193,7 +194,7 @@ public class MusicPresenter {
             @Override
             public void onResponse(Call<BaseJson> call, Response<BaseJson> response) {
                 if (response.body() != null) {
-                    view.creatArtistSuccess(response.body().getMsg());
+                    view.creatArtistSuccess(response.body().getFileId());
                 }else {
                     Toast.makeText(BaseApplication.getAppContext(),"Response无返回",Toast.LENGTH_SHORT).show();
                 }
@@ -207,28 +208,49 @@ public class MusicPresenter {
     }
 
     public interface GetArtistView{
-        void getArtistSuccess(List<Artist> artists);
+        void getArtistSuccess(List<Artist> artists,List<Artist> collects);
     }
 
     public void getArtistList(GetArtistView view){
-        Call<List<BaseListJson>> call = ApiClient.apiList.getArtistList();
-        call.enqueue(new Callback<List<BaseListJson>>() {
+        Call<AllCollectArt> call = ApiClient.apiList.getArtistList();
+        call.enqueue(new Callback<AllCollectArt>() {
             @Override
-            public void onResponse(Call<List<BaseListJson>> call, Response<List<BaseListJson>> response) {
-                List<BaseListJson> listJsons = response.body();
+            public void onResponse(Call<AllCollectArt> call, Response<AllCollectArt> response) {
+                AllCollectArt listJsons = response.body();
+                List<BaseListJson> artList = listJsons.getArtistAll();
+                List<BaseListJson> collectList = listJsons.getCollectList();
+
                 List<Artist> artists = new ArrayList<>();
-                if (listJsons != null) {
-                    for (int i = 0; i < listJsons.size(); i++) {
-                        Artist artist = mGson.fromJson(listJsons.get(i).getFields().toString(),Artist.class);
-                        Log.i(TAG, "onResponse: "+artist.toString());
-                        artists.add(artist);
+                List<Artist> collects = new ArrayList<>();
+                List<Artist> coleList = new ArrayList<>();
+
+                for (int i = 0; i < artList.size(); i++) {
+                    Artist artist = mGson.fromJson(artList.get(i).getFields().toString(),Artist.class);
+                    artists.add(artist);
+                }
+                for (int i = 0; i < collectList.size(); i++) {
+                    Artist artist = mGson.fromJson(collectList.get(i).getFields().toString(),Artist.class);
+                    collects.add(artist);
+                }
+                Log.i(TAG, "onResponse: artists="+artists.size());
+                Log.i(TAG, "onResponse: collects="+collects.size());
+
+                for (int i = 0; i < artists.size(); i++) {
+                    String artId = artists.get(i).getUpId();
+                    for (int j = 0; j < collects.size(); j++) {
+                        String collectId = collects.get(j).getUpId();
+                        if (collectId.equals(artId) && !TextUtils.isEmpty(artId)){
+                            coleList.add(artists.get(i));
+                            artists.get(i).setCollect(true);
+                            Log.i(TAG, "onResponse: 添加一个收藏");
+                        }
                     }
                 }
-                view.getArtistSuccess(artists);
+                view.getArtistSuccess(artists,coleList);
             }
 
             @Override
-            public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
+            public void onFailure(Call<AllCollectArt> call, Throwable t) {
                 Log.e(TAG, "onFailure: ",t);
             }
         });
@@ -333,11 +355,11 @@ public class MusicPresenter {
         void getCollectSuccess(List<CollectInfo> collectInfos);
     }
 
-    private interface AddCollectView{
+    public interface AddCollectView{
         void addCollectSuccess(BaseJson baseJson);
     }
 
-    private interface DeleteCollectView{
+    public interface DeleteCollectView{
         void deleteCollectSccess(BaseJson baseJson);
     }
 

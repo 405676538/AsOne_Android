@@ -3,16 +3,14 @@
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:layout_marginBottom="10dp"
     android:background="@color/black_red"
     android:layout_height="70dp">
 
     <ImageView
         android:id="@+id/iv_img"
         android:padding="5dp"
-        android:scaleType="fitXY"
         android:layout_marginStart="20dp"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent" />
 
     <TextView
@@ -20,7 +18,7 @@
         android:layout_marginLeft="15dp"
         android:id="@+id/tv_name"
         android:gravity="center"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
@@ -31,10 +29,11 @@
         android:layout_weight="1"/>
 
     <ImageView
+        android:id="@+id/iv_conlection"
         android:layout_gravity="center"
         android:src="@mipmap/comein"
         android:layout_marginEnd="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="20dp" />
 
 </LinearLayout>

@@ -8,6 +8,8 @@ class Artist {
     var head = ""
     var country = ""
     var recommend = ""
+    var upId=""
+    var collect = false
 
     override fun toString(): String {
         return "Artist(name='$name', age='$age', six='$six', brief='$brief', head='$head', country='$country', recommend='$recommend')"

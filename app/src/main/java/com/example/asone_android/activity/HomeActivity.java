@@ -14,12 +14,15 @@ import android.widget.TextView;
 import com.example.asone_android.Base.BaseActivity;
 import com.example.asone_android.R;
 import com.example.asone_android.activity.fragment.AllArtistFragment;
+import com.example.asone_android.activity.fragment.AllHouseFragment;
 import com.example.asone_android.activity.fragment.CollectFragment;
 import com.example.asone_android.activity.fragment.HomeFragment;
 import com.example.asone_android.activity.fragment.PeopleFragment;
 import com.example.asone_android.activity.fragment.VoiceFragment;
 import com.example.asone_android.app.Constant;
 import com.example.asone_android.bean.EventBusMessage;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +57,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mFragmentAdapter);
         viewPager.addOnPageChangeListener(this);
-
     }
 
     @Override
@@ -146,20 +148,24 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onPageSelected(int i) {
-        removeAllFragment();
         switch (i) {
             case 0:
+                removeAllFragment();
                 selectHome();
                 break;
             case 1:
+                removeAllFragment();
                 selectPeople();
                 break;
             case 2:
+                removeAllFragment();
                 selectVoice();
                 break;
             case 3:
+                removeAllFragment();
                 selectCollect();
                 break;
+                default:
         }
     }
 
@@ -191,6 +197,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (eventBusMessage.getCode() == EventBusMessage.ADD_ALL_ARTIST_FRAGMENT) {
             addAllArtistFragment();
         }
+        if (eventBusMessage.getCode() == EventBusMessage.ADD_ALL_HOUSE_FRAGMENT) {
+            addAllHouseFragment();
+        }
     }
 
     private List<Fragment> fragments = new ArrayList<>();
@@ -202,9 +211,26 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 .add(R.id.rl_fragment, fragment).addToBackStack("").commit();
     }
 
+    public void addAllHouseFragment() {
+        AllHouseFragment fragment = new AllHouseFragment();
+        fragments.add(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.rl_fragment, fragment).addToBackStack("").commit();
+    }
+
     public void removeAllFragment() {
+        EventBus.getDefault().post(new EventBusMessage(EventBusMessage.CAN_SCALL_HOME));
         for (Fragment fragment:fragments) {
+            Log.i(TAG, "removeAllFragment: ");
+            getSupportFragmentManager().popBackStack();
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
+        fragments.clear();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

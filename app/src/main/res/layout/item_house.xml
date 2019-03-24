@@ -7,7 +7,6 @@
 
     <com.example.asone_android.activity.view.RoundImageView
         android:id="@+id/iv_img"
-        android:layout_marginTop="15dp"
         android:scaleType="centerCrop"
         app:type="round"
         android:layout_marginStart="20dp"

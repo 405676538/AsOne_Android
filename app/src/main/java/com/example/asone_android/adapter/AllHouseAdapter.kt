@@ -5,16 +5,17 @@ import android.widget.ImageView
 import com.example.asone_android.R
 import com.example.asone_android.bean.Artist
 import com.example.asone_android.bean.Country
+import com.example.asone_android.bean.MusicAlbum
 import com.example.asone_android.utils.AppUtils
 import com.example.asone_android.utils.ImageUtil
 import com.example.asone_android.view.SwipeRefresh.BaseRecyAdapter
 
-class CountryAdapter(context: Context, layout:Int, private val systemList:MutableList<Country>): BaseRecyAdapter(context,layout) {
+class AllHouseAdapter(context: Context, layout:Int, private val systemList:MutableList<MusicAlbum>): BaseRecyAdapter(context,layout) {
 
     override fun onBindViewHolder(holder: MYViewholder, position: Int) {
         var ivImg = holder.getView<ImageView>(R.id.iv_img)
-        ImageUtil.GlidegetRoundFourImage(AppUtils.getDownLoadFileUrl(systemList[position].banner),ivImg,10)
-        holder.setText(R.id.tv_name,systemList[position].name)
+        ImageUtil.GlideImage(AppUtils.getDownLoadFileUrl(systemList[position].imgUrl),ivImg)
+        holder.setText(R.id.tv_name,systemList[position].title)
 
 
     }

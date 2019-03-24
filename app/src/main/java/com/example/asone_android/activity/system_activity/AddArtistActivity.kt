@@ -135,11 +135,11 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
     }
 
     override fun CreatCountrySuccess(ba: BaseJson?) {
-        showShortToast(ba?.msg)
+        showShortToast(ba?.fileId)
     }
 
     override fun creatSoundTypeSuccess(baseJson: BaseJson?) {
-        showShortToast(baseJson?.msg)
+        showShortToast(baseJson?.fileId)
     }
 
 
