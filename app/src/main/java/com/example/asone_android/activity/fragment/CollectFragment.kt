@@ -63,7 +63,7 @@ class CollectFragment: BaseFragment(), MusicPresenter.GetBVersionView {
         if (checkPermission(Constant.sPermissionsArray[4], Constant.sPermissionsArray[5])) {
             VersionUpdataHelper(mContext as Activity?, AppUtils.getDownLoadFileUrl(versionInfo!!.apkId), true,"")
         } else {
-            showShortToast(getString(R.string.storage_permission_not_has_tip))
+            showShortToast(getString(R.string.has_tip))
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.asone_android.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -202,7 +203,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (checkPermission(Constant.sPermissionsArray[4], Constant.sPermissionsArray[5])) {
             new VersionUpdataHelper((Activity) mContext, AppUtils.getDownLoadFileUrl(versionInfo.getApkId()), true, "");
         } else {
-            showShortToast(getString(R.string.storage_permission_not_has_tip));
+            showShortToast(getString(R.string.has_tip));
         }
     }
 
@@ -227,7 +228,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void onEventMainThread(EventBusMessage eventBusMessage) {
         super.onEventMainThread(eventBusMessage);
         if (eventBusMessage.getCode() == EventBusMessage.ADD_ALL_ARTIST_FRAGMENT) {
-            addAllArtistFragment();
+            String type = eventBusMessage.getMsg();
+            String typeContent = eventBusMessage.getMsg1();
+            addAllArtistFragment(type,typeContent);
         }
         if (eventBusMessage.getCode() == EventBusMessage.ADD_ALL_HOUSE_FRAGMENT) {
             addAllHouseFragment();
@@ -239,8 +242,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     private List<Fragment> fragments = new ArrayList<>();
 
-    public void addAllArtistFragment() {
+    public void addAllArtistFragment(String type,String typeContent) {
+        if (type == null){
+            type = "";
+        }
+        if (typeContent == null){
+            typeContent = "";
+        }
         AllArtistFragment fragment = new AllArtistFragment();
+        Bundle args = new Bundle();
+        args.putString(AllArtistFragment.Companion.getFilter(),typeContent);
+        args.putString(AllArtistFragment.Companion.getType(),type);
+        fragment.setArguments(args);
         fragments.add(fragment);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.rl_fragment, fragment).addToBackStack("").commit();

@@ -109,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         ImageView mIvwx = view.findViewById(R.id.iv_weixin);
         mIvqq.setOnClickListener(v -> {
             login(SHARE_MEDIA.QQ);
-            showNoLoginDialog();
+            showLoadDialog();
             mWindowFactory.dismiss();
         });
         mIvwx.setOnClickListener(v -> {

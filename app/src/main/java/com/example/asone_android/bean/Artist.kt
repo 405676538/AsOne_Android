@@ -11,6 +11,17 @@ class Artist {
     var upId=""
     var collect = false
 
+    /**
+     * 约定type
+     * name = 1
+     *  age = 2
+     *  six = 3
+     * country = 4
+     * recommend = 5
+     *
+     *
+     * */
+
     override fun toString(): String {
         return "Artist(name='$name', age='$age', six='$six', brief='$brief', head='$head', country='$country', recommend='$recommend')"
     }

@@ -74,7 +74,7 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
             }
         })
         add_select.setOnClickListener {
-            EventBus.getDefault().post(EventBusMessage(EventBusMessage.ADD_ALL_ARTIST_FRAGMENT)) //添加所有up fragment页面
+            EventBus.getDefault().post(EventBusMessage(EventBusMessage.ADD_ALL_ARTIST_FRAGMENT,0,"")) //添加所有up fragment页面
         }
 
         tv_all_house.setOnClickListener {
@@ -89,7 +89,7 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
 
     override fun onRefresh() {
         presenter.getMusicAlbum(this)
-        presenter.getArtistList(this)
+        presenter.getArtistList(this,6,"")
     }
 
     override fun getAlbumSuccess(infos: MutableList<MusicAlbumInfo>?) {
@@ -107,7 +107,10 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
         if (collects.isNullOrEmpty()){
             add_select.visibility = View.VISIBLE
             tv_hint_art.visibility = View.VISIBLE
+            tv_select.visibility = View.GONE
         }else{
+            add_select.visibility = View.GONE
+            tv_hint_art.visibility = View.GONE
             tv_select.visibility = View.VISIBLE
             artList.clear()
             artList.addAll(collects)

@@ -99,7 +99,7 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
             musicLabelList.add(str)
         }
 
-        presenter.getArtistList(this)
+        presenter.getArtistList(this,0,"")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -212,8 +212,21 @@ public class MusicPresenter {
         void getArtistSuccess(List<Artist> artists,List<Artist> collects);
     }
 
-    public void getArtistList(GetArtistView view){
-        Call<AllCollectArt> call = ApiClient.apiList.getArtistList();
+    /***
+     *  约定 后端过滤  type = 0 不过
+     *  name = 1
+     *  age = 2
+     *  six = 3
+     *  country = 4
+     *  recommend = 5
+     *             = 6 查询收藏的列表
+     * @param view
+     * @param type 约定
+     * @param filter 过滤的内容  例：中国
+     */
+    public void getArtistList(GetArtistView view,int type,String filter){
+        String userId = ACache.get().getAsString(ACache.TAG_USER_ID);
+        Call<AllCollectArt> call = ApiClient.apiList.getArtistList(type,filter,userId);
         call.enqueue(new Callback<AllCollectArt>() {
             @Override
             public void onResponse(Call<AllCollectArt> call, Response<AllCollectArt> response) {
