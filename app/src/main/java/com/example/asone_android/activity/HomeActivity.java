@@ -21,12 +21,14 @@ import com.example.asone_android.activity.fragment.AllHouseFragment;
 import com.example.asone_android.activity.fragment.CollectFragment;
 import com.example.asone_android.activity.fragment.DisclaimerFragment;
 import com.example.asone_android.activity.fragment.HomeFragment;
+import com.example.asone_android.activity.fragment.MusicListFragment;
 import com.example.asone_android.activity.fragment.PeopleFragment;
 import com.example.asone_android.activity.fragment.VoiceFragment;
 import com.example.asone_android.app.Constant;
 import com.example.asone_android.bean.EventBusMessage;
 import com.example.asone_android.bean.VersionInfo;
 import com.example.asone_android.net.MusicPresenter;
+import com.example.asone_android.utils.ACache;
 import com.example.asone_android.utils.AppUtils;
 import com.example.asone_android.utils.PhoneUtil;
 import com.example.asone_android.utils.version.VersionUpdataHelper;
@@ -228,8 +230,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void onEventMainThread(EventBusMessage eventBusMessage) {
         super.onEventMainThread(eventBusMessage);
         if (eventBusMessage.getCode() == EventBusMessage.ADD_ALL_ARTIST_FRAGMENT) {
-            String type = eventBusMessage.getMsg();
-            String typeContent = eventBusMessage.getMsg1();
+            int type = eventBusMessage.getCode1();
+            String typeContent = eventBusMessage.getMsg();
             addAllArtistFragment(type,typeContent);
         }
         if (eventBusMessage.getCode() == EventBusMessage.ADD_ALL_HOUSE_FRAGMENT) {
@@ -238,13 +240,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (eventBusMessage.getCode() == EventBusMessage.ADD_DISCLAIMER) {
             addDisclaimerFragment();
         }
+        if (eventBusMessage.getCode() == EventBusMessage.ADD_MUSIC_LIST) {
+            addMusicListFragment(eventBusMessage.getCode1(),eventBusMessage.getMsg());
+        }
     }
 
     private List<Fragment> fragments = new ArrayList<>();
 
-    public void addAllArtistFragment(String type,String typeContent) {
-        if (type == null){
-            type = "";
+    public void addAllArtistFragment(int type,String typeContent) {
+        if (type <= -1){
+            type = 0;
         }
         if (typeContent == null){
             typeContent = "";
@@ -252,8 +257,19 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         AllArtistFragment fragment = new AllArtistFragment();
         Bundle args = new Bundle();
         args.putString(AllArtistFragment.Companion.getFilter(),typeContent);
-        args.putString(AllArtistFragment.Companion.getType(),type);
+        args.putInt(AllArtistFragment.Companion.getType(),type);
         fragment.setArguments(args);
+        fragments.add(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.rl_fragment, fragment).addToBackStack("").commit();
+    }
+
+    public void addMusicListFragment(int type,String typeContent){
+        MusicListFragment fragment = new MusicListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(MusicListFragment.Companion.getQuery(),typeContent);
+        bundle.putInt(MusicListFragment.Companion.getType(),type);
+        fragment.setArguments(bundle);
         fragments.add(fragment);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.rl_fragment, fragment).addToBackStack("").commit();

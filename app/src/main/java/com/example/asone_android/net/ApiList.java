@@ -61,7 +61,7 @@ public interface ApiList {
 
     /** 获取艺术家列表 */
     @GET("/artist")
-    Call<AllCollectArt> getArtistList(@Query("type") int type,@Query("typeContent")String typeContent,@Query("userId") String userId);
+    Call<List<BaseListJson>> getArtistList(@Query("type") int type,@Query("typeContent")String typeContent,@Query("userId") String userId);
 
     /** 创建国家 */
     @POST("/country")

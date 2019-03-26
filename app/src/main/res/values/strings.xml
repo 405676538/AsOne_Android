@@ -14,5 +14,6 @@
     \n\n 本软件联系方式\n
     405676538@qq.com</string>
     <string name="has_tip">未授权存储权限，会影响版本更新等功能，建议立即授权</string>
+    <string name="music_list_title">音乐列表</string>
 
 </resources>

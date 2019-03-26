@@ -38,10 +38,12 @@ class AllArtistFragment:BaseFragment(), MusicPresenter.GetArtistView {
         tv_left.text = "所有艺术家"
         type = arguments?.getInt(AllArtistFragment.type)!!
         typeContent = arguments?.getString(AllArtistFragment.filter)!!
-
+        if (!typeContent.isNullOrEmpty()){
+            tv_left.text = typeContent+"艺术家"
+        }
     }
 
-    override fun getArtistSuccess(artists: MutableList<Artist>?,collects: MutableList<Artist>?) {
+    override fun getArtistSuccess(artists: MutableList<Artist>?) {
         artists?.let {
             artList.clear()
             artList.addAll(artists)

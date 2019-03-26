@@ -61,14 +61,15 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
 
         countryAdapter.setOnItemClickListener { view, position ->
             EventBus.getDefault().post(EventBusMessage
-            (EventBusMessage.ADD_ALL_ARTIST_FRAGMENT,countryList[position].name))
+            (EventBusMessage.ADD_ALL_ARTIST_FRAGMENT,4,countryList[position].name))
         }
     }
 
     override fun initView() {
         tv_left.text = "艺术家"
         tv_show_all.setOnClickListener {
-            EventBus.getDefault().post(EventBusMessage(EventBusMessage.ADD_ALL_ARTIST_FRAGMENT,0,""))
+            EventBus.getDefault().post(EventBusMessage
+            (EventBusMessage.ADD_ALL_ARTIST_FRAGMENT,0,""))
         }
     }
 
@@ -77,7 +78,7 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
         presenter.getCountry(this)
     }
 
-    override fun getArtistSuccess(artists: MutableList<Artist>?,collects: MutableList<Artist>?) {
+    override fun getArtistSuccess(artists: MutableList<Artist>?) {
         artistList.clear()
         artists?.let {
             for (art in artists){

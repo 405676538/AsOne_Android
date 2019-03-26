@@ -17,6 +17,7 @@ import com.example.asone_android.bean.MusicAlbum
 import com.example.asone_android.bean.MusicAlbumInfo
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.ACache
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_top_bar_all.*
 import org.greenrobot.eventbus.EventBus
@@ -80,6 +81,11 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
         tv_all_house.setOnClickListener {
             EventBus.getDefault().post(EventBusMessage(EventBusMessage.ADD_ALL_HOUSE_FRAGMENT))
         }
+
+        artAdapter.setOnItemClickListener { view, position ->
+            EventBus.getDefault().post(
+                    EventBusMessage(EventBusMessage.ADD_MUSIC_LIST,4,artList[position].name))
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -89,6 +95,12 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
 
     override fun onRefresh() {
         presenter.getMusicAlbum(this)
+        if (TextUtils.isEmpty(ACache.get().getAsString(ACache.TAG_USER_ID))){
+            add_select.visibility = View.VISIBLE
+            tv_hint_art.visibility = View.VISIBLE
+            tv_select.visibility = View.GONE
+            return
+        }
         presenter.getArtistList(this,6,"")
     }
 
@@ -103,8 +115,8 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
         houseAdapter.notifyDataSetChanged()
     }
 
-    override fun getArtistSuccess(artists: MutableList<Artist>?, collects: MutableList<Artist>?) {
-        if (collects.isNullOrEmpty()){
+    override fun getArtistSuccess(artists: MutableList<Artist>?) {
+        if (artists.isNullOrEmpty()){
             add_select.visibility = View.VISIBLE
             tv_hint_art.visibility = View.VISIBLE
             tv_select.visibility = View.GONE
@@ -113,9 +125,10 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
             tv_hint_art.visibility = View.GONE
             tv_select.visibility = View.VISIBLE
             artList.clear()
-            artList.addAll(collects)
+            artList.addAll(artists)
             artAdapter.notifyDataSetChanged()
         }
+        srl_main.isRefreshing = false
     }
 
     override fun onEventMainThread(eventBusMessage: EventBusMessage?) {

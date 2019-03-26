@@ -39,6 +39,7 @@ public class ACache {
 	public static final String TAG_USER_ID = "user_id";
 	public static final String TAG_USER_NAME = "user_name";
 	public static final String TAG_USER_HEAD = "user_head";
+	public static final String USER_SELECT_PEOPLE = "USER_SELECT_PEOPLE"; //用户收藏的列表
 
 
 

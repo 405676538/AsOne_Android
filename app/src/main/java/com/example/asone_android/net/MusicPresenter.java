@@ -23,6 +23,7 @@ import com.example.asone_android.bean.VersionInfo;
 import com.example.asone_android.utils.ACache;
 import com.example.asone_android.utils.AppUtils;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -209,7 +210,7 @@ public class MusicPresenter {
     }
 
     public interface GetArtistView{
-        void getArtistSuccess(List<Artist> artists,List<Artist> collects);
+        void getArtistSuccess(List<Artist> artists);
     }
 
     /***
@@ -226,44 +227,42 @@ public class MusicPresenter {
      */
     public void getArtistList(GetArtistView view,int type,String filter){
         String userId = ACache.get().getAsString(ACache.TAG_USER_ID);
-        Call<AllCollectArt> call = ApiClient.apiList.getArtistList(type,filter,userId);
-        call.enqueue(new Callback<AllCollectArt>() {
+        Call<List<BaseListJson>> call = ApiClient.apiList.getArtistList(type,filter,userId);
+        call.enqueue(new Callback<List<BaseListJson>>() {
             @Override
-            public void onResponse(Call<AllCollectArt> call, Response<AllCollectArt> response) {
-                AllCollectArt listJsons = response.body();
-                List<BaseListJson> artList = listJsons.getArtistAll();
-                List<BaseListJson> collectList = listJsons.getCollectList();
-
+            public void onResponse(Call<List<BaseListJson>> call, Response<List<BaseListJson>> response) {
+                List<BaseListJson> artList = response.body();
                 List<Artist> artists = new ArrayList<>();
-                List<Artist> collects = new ArrayList<>();
-                List<Artist> coleList = new ArrayList<>();
-
-                for (int i = 0; i < artList.size(); i++) {
-                    Artist artist = mGson.fromJson(artList.get(i).getFields().toString(),Artist.class);
-                    artists.add(artist);
+                if (artList != null) {
+                    for (int i = 0; i < artList.size(); i++) {
+                        Artist artist = mGson.fromJson(artList.get(i).getFields().toString(),Artist.class);
+                        artists.add(artist);
+                    }
                 }
-                for (int i = 0; i < collectList.size(); i++) {
-                    Artist artist = mGson.fromJson(collectList.get(i).getFields().toString(),Artist.class);
-                    collects.add(artist);
-                }
-                Log.i(TAG, "onResponse: artists="+artists.size());
-                Log.i(TAG, "onResponse: collects="+collects.size());
-
-                for (int i = 0; i < artists.size(); i++) {
-                    String artId = artists.get(i).getUpId();
-                    for (int j = 0; j < collects.size(); j++) {
-                        String collectId = collects.get(j).getUpId();
-                        if (collectId.equals(artId) && !TextUtils.isEmpty(artId)){
-                            coleList.add(artists.get(i));
-                            artists.get(i).setCollect(true);
+                if (type == 6){
+                    ACache.get().put(ACache.USER_SELECT_PEOPLE,mGson.toJson(artists));
+                }else {
+                    if (!TextUtils.isEmpty(userId)){
+                       String arstr = ACache.get().getAsString(ACache.USER_SELECT_PEOPLE);
+                        List<Artist> selectArt = mGson.fromJson(arstr,new TypeToken<List<Artist>>(){}.getType());
+                        if (!selectArt.isEmpty() && !artists.isEmpty()){
+                            for (int i = 0; i < artists.size(); i++) {
+                                String arId = artists.get(i).getUpId();
+                                for (int j = 0; j < selectArt.size(); j++) {
+                                    String seId = selectArt.get(j).getUpId();
+                                    if (arId.equals(seId)){
+                                        artists.get(i).setCollect(true);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-                view.getArtistSuccess(artists,coleList);
+                view.getArtistSuccess(artists);
             }
 
             @Override
-            public void onFailure(Call<AllCollectArt> call, Throwable t) {
+            public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ",t);
             }
         });
