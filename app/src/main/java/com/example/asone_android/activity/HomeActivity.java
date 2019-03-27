@@ -241,7 +241,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             addDisclaimerFragment();
         }
         if (eventBusMessage.getCode() == EventBusMessage.ADD_MUSIC_LIST) {
-            addMusicListFragment(eventBusMessage.getCode1(),eventBusMessage.getMsg());
+            addMusicListFragment(eventBusMessage.getBundle());
         }
     }
 
@@ -264,11 +264,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 .add(R.id.rl_fragment, fragment).addToBackStack("").commit();
     }
 
-    public void addMusicListFragment(int type,String typeContent){
+    public void addMusicListFragment(Bundle bundle){
         MusicListFragment fragment = new MusicListFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(MusicListFragment.Companion.getQuery(),typeContent);
-        bundle.putInt(MusicListFragment.Companion.getType(),type);
         fragment.setArguments(bundle);
         fragments.add(fragment);
         getSupportFragmentManager().beginTransaction()

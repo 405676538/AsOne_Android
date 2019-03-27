@@ -40,9 +40,9 @@ public interface ApiList {
     Call<UpLoad> postMusic(@Field("audioId")String audioId,@Field("imgId")String imgId,@Field("title")String title,
                            @Field("musicLabel")String musicLabel,@Field("artist")String artist,@Field("country")String country);
 
-    /** 获取全部Music列表 */
+    /** 获取不同情况下的Music列表 */
     @GET("/music")
-    Call<List<MusicFieldInfo>> getMusicAlbum(@Query("musicLabel")String musicLabel);
+    Call<List<MusicFieldInfo>> getMusicAlbum(@Query("type")int type,@Query("content")String content);
 
     /** 新建MusicAlbum */
     @POST("/house/album")
@@ -105,4 +105,8 @@ public interface ApiList {
     @POST("/version")
     @FormUrlEncoded
     Call<BaseJson> addVersion(@Field("versionCode")String versionCode,@Field("apkId")String apkId);
+
+    /** 根据合集id 获取列表 */
+    @GET("/house/album/detail")
+    Call<List<BaseListJson>> getAlbumMusicList(@Query("albumId")String albumId);
 }

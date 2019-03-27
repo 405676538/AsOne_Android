@@ -1,5 +1,6 @@
 package com.example.asone_android.activity.fragment
 
+import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,10 +12,7 @@ import com.example.asone_android.R
 import com.example.asone_android.adapter.HomeArcAdapter
 import com.example.asone_android.adapter.HouseAdapter
 import com.example.asone_android.app.Constant
-import com.example.asone_android.bean.Artist
-import com.example.asone_android.bean.EventBusMessage
-import com.example.asone_android.bean.MusicAlbum
-import com.example.asone_android.bean.MusicAlbumInfo
+import com.example.asone_android.bean.*
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.ACache
 import com.google.gson.Gson
@@ -23,6 +21,7 @@ import kotlinx.android.synthetic.main.include_top_bar_all.*
 import org.greenrobot.eventbus.EventBus
 
 class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefreshLayout.OnRefreshListener, MusicPresenter.GetArtistView {
+
 
     val TAG = "HomeFragment"
 
@@ -34,6 +33,7 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
     var presenter = MusicPresenter()
     var isBeginScoll = false
     var srlMain: SwipeRefreshLayout? = null
+    var albumPosition = 0
 
     override fun getLayout(): Int {
         return R.layout.fragment_home
@@ -83,8 +83,25 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
         }
 
         artAdapter.setOnItemClickListener { view, position ->
+            var buddle =Bundle()
+            buddle.putInt(MusicListFragment.type,3)
+            buddle.putString(MusicListFragment.query,artList[position].name)
+            buddle.putString(MusicListFragment.mainTitle,artList[position].brief)
+            buddle.putString(MusicListFragment.img,artList[position].head)
             EventBus.getDefault().post(
-                    EventBusMessage(EventBusMessage.ADD_MUSIC_LIST,4,artList[position].name))
+                    EventBusMessage(EventBusMessage.ADD_MUSIC_LIST,buddle)
+            )
+        }
+
+        houseAdapter.setOnItemClickListener { view, position ->
+            var buddle =Bundle()
+            buddle.putInt(MusicListFragment.type,5)
+            buddle.putString(MusicListFragment.query,houseList[position].albumId)
+            buddle.putString(MusicListFragment.mainTitle,houseList[position].title)
+            buddle.putString(MusicListFragment.img,houseList[position].imgUrl)
+            EventBus.getDefault().post(
+                    EventBusMessage(EventBusMessage.ADD_MUSIC_LIST,buddle)
+            )
         }
     }
 

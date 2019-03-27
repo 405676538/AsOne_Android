@@ -10,6 +10,8 @@ import com.example.asone_android.Base.BaseJson
 import com.example.asone_android.R
 import com.example.asone_android.app.Constant
 import com.example.asone_android.bean.Artist
+import com.example.asone_android.bean.Country
+import com.example.asone_android.bean.Sound
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.FileUtils
 import kotlinx.android.synthetic.main.activity_system.*
@@ -17,9 +19,7 @@ import kotlinx.android.synthetic.main.include_top_bar_all.*
 import java.io.File
 import kotlin.math.log
 
-class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatMusicView, MusicPresenter.GetArtistView {
-
-
+class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatMusicView, MusicPresenter.GetArtistView, MusicPresenter.GetCountryView, MusicPresenter.GetSoundTypeView {
 
     val TAG = "AddMusicActivity"
     var presenter = MusicPresenter()
@@ -49,22 +49,8 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
             getEdit()
             presenter.creatMusic(voiceId,imgId,title,musicLabel,artist,country,this)
         }
-        tv_music_label.setOnClickListener {
-            var options =OptionsPickerBuilder(SystemActivity@this, OnOptionsSelectListener
-            { options1, _, _, _ -> tv_music_label.text = musicLabelList[options1] }).build<String>()
-            options.setPicker(musicLabelList)
-            options.show()
-        }
-        tv_country.setOnClickListener {
-            var opTions =OptionsPickerBuilder(SystemActivity@this,object : OnOptionsSelectListener{
-            override fun onOptionsSelect(options1: Int, options2: Int, options3: Int, v: View?) {
-                tv_country.text = countryList[options1]
-            }
 
-        }).build<String>()
-            opTions.setPicker(countryList)
-            opTions.show()
-        }
+
     }
 
     fun getEdit(){
@@ -90,11 +76,8 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
     }
 
     override fun initView() {
-
-        for (str in Constant.countryList){
-            countryList.add(str)
-        }
-
+        presenter.getCountry(this)
+        presenter.getSoundTypeList(this)
         for (str in Constant.asmrList){
             musicLabelList.add(str)
         }
@@ -151,5 +134,42 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
             opTions.show()
         }
     }
+
+    override fun getSoundTypoeSuccess(sounds: MutableList<Sound>?) {
+        sounds?.let {
+            musicLabelList.clear()
+            for(sound in sounds){
+                musicLabelList.add(sound.name)
+            }
+        }
+        tv_music_label.setOnClickListener {
+            var options =OptionsPickerBuilder(SystemActivity@this, OnOptionsSelectListener
+            { options1, _, _, _ -> tv_music_label.text = musicLabelList[options1] }).build<String>()
+            options.setPicker(musicLabelList)
+            options.show()
+        }
+    }
+
+    override fun GetCountrySuccess(countries: MutableList<Country>?) {
+        countries?.let {
+            countryList.clear()
+            for (ctry in countries){
+                countryList.add(ctry.name)
+            }
+        }
+
+        tv_country.setOnClickListener {
+            var opTions =OptionsPickerBuilder(SystemActivity@this,object : OnOptionsSelectListener{
+                override fun onOptionsSelect(options1: Int, options2: Int, options3: Int, v: View?) {
+                    tv_country.text = countryList[options1]
+                }
+
+            }).build<String>()
+            opTions.setPicker(countryList)
+            opTions.show()
+        }
+    }
+
+
 
 }

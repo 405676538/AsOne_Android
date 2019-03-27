@@ -1,5 +1,7 @@
 package com.example.asone_android.bean;
 
+import android.os.Bundle;
+
 public class EventBusMessage {
 
     // 0:不过滤 1:name 2:age 3:six 4:country 5:recommend 6 查询收藏的列表
@@ -32,6 +34,11 @@ public class EventBusMessage {
         this.msg = msg;
     }
 
+    public EventBusMessage(int code, Bundle bundle) {
+        this.code = code;
+        this.bundle = bundle;
+    }
+
     private int code;
 
     private int code1;
@@ -39,6 +46,16 @@ public class EventBusMessage {
     private String msg;
 
     private String msg1;
+
+    private Bundle bundle;
+
+    public Bundle getBundle() {
+        return bundle;
+    }
+
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
+    }
 
     public int getCode1() {
         return code1;

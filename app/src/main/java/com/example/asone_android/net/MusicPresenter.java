@@ -119,8 +119,8 @@ public class MusicPresenter {
         void getMusicDuccess(List<Music> album);
     }
 
-    public void getAlbumMusic(String musicLabel,GetMusicView getMusicView){
-        Call<List<MusicFieldInfo>> call = ApiClient.apiList.getMusicAlbum(musicLabel);
+    public void getAlbumMusic(int type,String content,GetMusicView getMusicView){
+        Call<List<MusicFieldInfo>> call = ApiClient.apiList.getMusicAlbum(type,content);
         call.enqueue(new Callback<List<MusicFieldInfo>>() {
             @Override
             public void onResponse(Call<List<MusicFieldInfo>> call, Response<List<MusicFieldInfo>> response) {
@@ -504,6 +504,35 @@ public class MusicPresenter {
 
             }
         });
+    }
+
+    public interface GetAlbumMusicListView{
+        void getAlbumMusicListSuccess(List<Music> musics);
+    }
+
+    public void getAlbumMusicList(String albumId,GetAlbumMusicListView albumMusicListView){
+        Call<List<BaseListJson>> call = ApiClient.apiList.getAlbumMusicList(albumId);
+        call.enqueue(new Callback<List<BaseListJson>>() {
+            @Override
+            public void onResponse(Call<List<BaseListJson>> call, Response<List<BaseListJson>> response) {
+                List<BaseListJson> listJsons = response.body();
+                List<Music> musicList = new ArrayList<>();
+                if (listJsons != null) {
+                    for (int i = 0; i < listJsons.size(); i++) {
+                        BaseListJson json = listJsons.get(i);
+                        Music music = mGson.fromJson(json.getFields().toString(),Music.class);
+                        musicList.add(music);
+                    }
+                }
+                albumMusicListView.getAlbumMusicListSuccess(musicList);
+            }
+
+            @Override
+            public void onFailure(Call<List<BaseListJson>> call, Throwable t) {
+
+            }
+        });
+
     }
 
 }

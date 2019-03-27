@@ -75,6 +75,10 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
+    public void logi(String info){
+        Log.i("Fragment====", info);
+    }
+
     @Subscribe
     public void onEventMainThread(EventBusMessage eventBusMessage) {
 

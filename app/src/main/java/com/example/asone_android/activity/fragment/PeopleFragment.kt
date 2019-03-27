@@ -1,6 +1,7 @@
 package com.example.asone_android.activity.fragment
 
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -62,6 +63,16 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
         countryAdapter.setOnItemClickListener { view, position ->
             EventBus.getDefault().post(EventBusMessage
             (EventBusMessage.ADD_ALL_ARTIST_FRAGMENT,4,countryList[position].name))
+        }
+
+        artistAdapter.setOnItemClickListener{view, position ->
+            val buddle = Bundle()
+            buddle.putInt(MusicListFragment.type,3)
+            buddle.putString(MusicListFragment.query,artistList[position].name)
+            buddle.putString(MusicListFragment.mainTitle,artistList[position].brief)
+            buddle.putString(MusicListFragment.img,artistList[position].head)
+            EventBus.getDefault().post(
+                    EventBusMessage(EventBusMessage.ADD_MUSIC_LIST,buddle))
         }
     }
 

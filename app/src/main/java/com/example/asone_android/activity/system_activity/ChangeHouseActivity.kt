@@ -46,7 +46,7 @@ class ChangeHouseActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPres
         rcl_select.adapter = selectAdapter
         rcl_all_music.adapter = allAdapter
 
-        presenter.getAlbumMusic("", this)
+        presenter.getAlbumMusic(0,"",this)
 
         btn_upload.setOnClickListener {
             title = et_title.text.toString()
@@ -115,7 +115,7 @@ class ChangeHouseActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPres
     }
 
     override fun albumUpSuccess(json: BaseJson?) {
-        showShortToast(json!!.msg)
+        showShortToast(json!!.fileId)
     }
 
 
