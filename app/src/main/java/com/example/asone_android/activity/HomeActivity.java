@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,6 +38,7 @@ import com.example.asone_android.utils.ACache;
 import com.example.asone_android.utils.AppUtils;
 import com.example.asone_android.utils.ExoUtils;
 import com.example.asone_android.utils.PhoneUtil;
+import com.example.asone_android.utils.StringUtils;
 import com.example.asone_android.utils.version.VersionUpdataHelper;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -205,6 +207,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     if (player.getPlayWhenReady()) {
                         player.setPlayWhenReady(false);
                         mIvPlay.setImageResource(R.mipmap.play_none);
+                        mTvMusicName.setMovementMethod(ScrollingMovementMethod.getInstance());
                     } else {
                         player.setPlayWhenReady(true);
                         mIvPlay.setImageResource(R.mipmap.play_in);
@@ -352,7 +355,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         this.musicPosition = position;
         String url = AppUtils.getDownLoadFileUrl(this.musicList.get(position).getAudioId());
         player.prepare(ExoUtils.getMediaSourse(this, url), false, true);
-        mTvMusicName.setText(musicList.get(position).getTitle());
+        mTvMusicName.setText(StringUtils.ToDBC(musicList.get(position).getTitle()));
+        mTvMusicName.setMovementMethod(ScrollingMovementMethod.getInstance());
 
     }
 
