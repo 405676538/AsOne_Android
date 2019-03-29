@@ -35,4 +35,8 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="musicStyle" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/music_style</item>
+    </style>
+
 </resources>

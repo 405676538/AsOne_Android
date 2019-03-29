@@ -113,9 +113,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             mWindowFactory.dismiss();
         });
         mIvwx.setOnClickListener(v -> {
-            login(SHARE_MEDIA.WEIXIN);
-            showLoadDialog();
-            mWindowFactory.dismiss();
+            showShortToast("暂不可用（~0-0~）,用隔壁qq吧");
+//            login(SHARE_MEDIA.WEIXIN);
+//            showLoadDialog();
+//            mWindowFactory.dismiss();
         });
         try {
             FrameLayout decorView = (FrameLayout) this.getWindow().getDecorView();

@@ -2,6 +2,8 @@ package com.example.asone_android.bean;
 
 import android.os.Bundle;
 
+import java.util.List;
+
 public class EventBusMessage {
 
     // 0:不过滤 1:name 2:age 3:six 4:country 5:recommend 6 查询收藏的列表
@@ -11,6 +13,7 @@ public class EventBusMessage {
     public static final int ADD_ALL_HOUSE_FRAGMENT = 1114;
     public static final int ADD_DISCLAIMER = 1115;
     public static final int ADD_MUSIC_LIST = 1116;
+    public static final int HOME_PLAY_MUSIC = 1117;
 
 
     public EventBusMessage(int code) {
@@ -39,6 +42,14 @@ public class EventBusMessage {
         this.bundle = bundle;
     }
 
+    public EventBusMessage(int code,int position,List<Music> musics) {
+        this.musics = musics;
+        this.code1 = position;
+        this.code = code;
+    }
+
+    private List<Music> musics;
+
     private int code;
 
     private int code1;
@@ -48,6 +59,14 @@ public class EventBusMessage {
     private String msg1;
 
     private Bundle bundle;
+
+    public List<Music> getMusics() {
+        return musics;
+    }
+
+    public void setMusics(List<Music> musics) {
+        this.musics = musics;
+    }
 
     public Bundle getBundle() {
         return bundle;

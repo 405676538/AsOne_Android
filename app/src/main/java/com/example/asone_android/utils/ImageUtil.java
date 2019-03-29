@@ -57,8 +57,8 @@ public class ImageUtil {
     @SuppressLint("CheckResult")
     private static RequestOptions getRequestOptions() {
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions.placeholder(R.mipmap.ic_launcher);
-        requestOptions.error(R.mipmap.ic_launcher);
+        requestOptions.placeholder(R.color.black_red);
+        requestOptions.error(R.color.black_red);
         return requestOptions;
     }
 

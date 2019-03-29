@@ -45,6 +45,7 @@ public class ExoUtils {
         Uri uri;
         if (filePath.contains("http")) {
             uri = Uri.parse(filePath);
+
             return buildHttpMediaSource(uri);
 
         } else {
