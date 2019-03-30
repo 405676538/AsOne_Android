@@ -5,11 +5,13 @@ import android.support.v7.widget.LinearLayoutManager
 import com.example.asone_android.Base.BaseFragment
 import com.example.asone_android.R
 import com.example.asone_android.adapter.MusicListAdapter
+import com.example.asone_android.bean.EventBusMessage
 import com.example.asone_android.bean.Music
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.AppUtils
 import com.example.asone_android.utils.ImageUtil
 import kotlinx.android.synthetic.main.fragment_music_list.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * # 处理音乐列表数据 0:全部 1：openNum  2:musicLabel 3:artist  4:upTime
@@ -56,8 +58,9 @@ class MusicListFragment : BaseFragment(), MusicPresenter.GetMusicView, MusicPres
         recyclerview.layoutManager = LinearLayoutManager(mContext)
         adapter = MusicListAdapter(mContext,R.layout.item_music_list,list)
         recyclerview.adapter = adapter
-
-
+        adapter.setOnItemClickListener { view, position ->
+            EventBus.getDefault().post(EventBusMessage(EventBusMessage.HOME_PLAY_MUSIC,position,list))
+        }
     }
 
     override fun initView() {

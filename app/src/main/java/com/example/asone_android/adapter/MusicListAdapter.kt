@@ -20,12 +20,10 @@ class MusicListAdapter(context: Context, layout:Int, private val systemList:Muta
         tvTitle.text = systemList[position].title
         tvContent.text = systemList[position].musicLabel
 
-        ivPlay.setOnClickListener {
-            print("MusicListAdapter --------"+systemList.size)
-            EventBus.getDefault().post(EventBusMessage(EventBusMessage.HOME_PLAY_MUSIC,position,systemList))
-        }
-
-
+//        ivPlay.setOnClickListener {
+//            print("MusicListAdapter --------"+systemList.size)
+//            EventBus.getDefault().post(EventBusMessage(EventBusMessage.HOME_PLAY_MUSIC,position,systemList))
+//        }
     }
 
     override fun getItemCount(): Int {
