@@ -40,6 +40,7 @@ public class Constant {
      *
      * */
     public static final int E_UPDATA_SYSTEM_MUSI = 11110;
+    public static final int E_UPDATA_SYSTEM_MUSI_SELECT = 11111;
 
     public static final String[] sixList = {"男","女","无"};
     public static final String[] countryList = {"中国","日本","韩国","美国","英国","俄国","银河共和国"};

@@ -39,7 +39,9 @@ import com.example.asone_android.utils.AppUtils;
 import com.example.asone_android.utils.ExoUtils;
 import com.example.asone_android.utils.PhoneUtil;
 import com.example.asone_android.utils.StringUtils;
+import com.example.asone_android.utils.TimeUtils;
 import com.example.asone_android.utils.version.VersionUpdataHelper;
+import com.example.asone_android.view.TimeTextView;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -47,6 +49,8 @@ import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.metadata.emsg.EventMessage;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -56,16 +60,18 @@ import java.util.List;
 public class HomeActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, MusicPresenter.GetBVersionView {
     private static final String TAG = "HomeActivity";
     private ViewPager viewPager;
-    private LinearLayout mLlHome, mLlPeople, mLlVoice, mLlCollect;
-    private ImageView mIvHome, mIvPeople, mIvVoice, mIvCollect, mIvCloseMusic, mIvPlay;
-    private TextView mTvHome, mTvPeople, mTvVoice, mTvCollect, mTvMusicName;
+    private LinearLayout mLlHome, mLlPeople, mLlVoice, mLlCollect,mLlRecommend;
+    private ImageView mIvHome, mIvPeople, mIvVoice, mIvCollect, mIvCloseMusic, mIvPlay,mIvRecommend;
+    private TextView mTvHome, mTvPeople, mTvVoice, mTvCollect, mTvMusicName, mTvAllTime,mTvRecommend;
     private LinearLayout mLlPlay;
     private SeekBar progressBar;
+    private TextView mTvTime;
 
     private HomeFragment homeFragment = new HomeFragment();
     private PeopleFragment peopleFragment = new PeopleFragment();
     private VoiceFragment voiceFragment = new VoiceFragment();
     private CollectFragment collectFragment = new CollectFragment();
+    private AllHouseFragment mAllHouseFragment = new AllHouseFragment();
     List<Fragment> mFragmentList = new ArrayList<>();
     FragmentAdapter mFragmentAdapter;
     MusicPresenter mMusicPresenter = new MusicPresenter();
@@ -83,6 +89,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void initData() {
         mFragmentList.add(homeFragment);
+        mFragmentList.add(mAllHouseFragment);
         mFragmentList.add(peopleFragment);
         mFragmentList.add(voiceFragment);
         mFragmentList.add(collectFragment);
@@ -97,16 +104,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         progressHandler.postDelayed(runnableProgress, 500);
         player.addListener(new Player.EventListener() {
             @Override
-            public void onSeekProcessed() {
-//
-            }
-
-            @Override
-            public void onLoadingChanged(boolean isLoading) {
-                Log.i(TAG, "onLoadingChanged: isLoading===" + isLoading);
-            }
-
-            @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                 Log.i(TAG, "onPlayerStateChanged: playbackState===" + playbackState);
                 Log.i(TAG, "onPlayerStateChanged: playWhenReady===" + playWhenReady);
@@ -115,6 +112,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     progressBar.setProgress(0);
                     showShortToast("即将播放下一首");
                     progressHandler.postDelayed(() -> playMusic(musicPosition + 1, musicList), 1000);
+                }
+                if (playbackState == Player.STATE_READY) {
+                    if (playWhenReady) {
+                        Log.i(TAG, "playMusic: " + player.getDuration() + "");
+                        String time = "/" + TimeUtils.getAATTTime(player.getDuration());
+                        mTvAllTime.setText(time);
+                    } else {
+                    }
                 }
             }
         });
@@ -127,15 +132,20 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mLlHome = findViewById(R.id.ll_home);
         mLlPeople = findViewById(R.id.ll_people);
         mLlVoice = findViewById(R.id.ll_voice);
+        mLlRecommend = findViewById(R.id.ll_recommend);
         mLlCollect = findViewById(R.id.ll_collect);
         mIvHome = findViewById(R.id.iv_home);
+        mIvRecommend = findViewById(R.id.iv_recommend);
+        mTvRecommend = findViewById(R.id.tv_recommend);
         mIvPeople = findViewById(R.id.iv_people);
         mIvVoice = findViewById(R.id.iv_voice);
         mIvCollect = findViewById(R.id.iv_collect);
         progressBar = findViewById(R.id.pb_week);
         mTvHome = findViewById(R.id.tv_home);
         mTvPeople = findViewById(R.id.tv_people);
+        mTvTime = findViewById(R.id.tv_time);
         mTvVoice = findViewById(R.id.tv_voice);
+        mTvAllTime = findViewById(R.id.tv_all_time);
         mTvCollect = findViewById(R.id.tv_collect);
         mLlPlay = findViewById(R.id.ll_play);
         mIvCloseMusic = findViewById(R.id.iv_close_music);
@@ -146,22 +156,24 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mLlVoice.setOnClickListener(this);
         mLlCollect.setOnClickListener(this);
         mIvCloseMusic.setOnClickListener(this);
+        mLlRecommend.setOnClickListener(this);
         mIvPlay.setOnClickListener(this);
         progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.i(TAG, "onProgressChanged: progress = " + progress);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                Log.i(TAG, "onStartTrackingTouch: " + seekBar.getProgress());
             }
+
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 player.seekTo((long) seekBar.getProgress());
             }
+
         });
 
     }
@@ -171,10 +183,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mIvPeople.setImageResource(R.mipmap.people_black);
         mIvVoice.setImageResource(R.mipmap.voice_black);
         mIvCollect.setImageResource(R.mipmap.collet_blacl);
+        mIvRecommend.setImageResource(R.mipmap.icon_fragment_recommend);
         mTvHome.setTextColor(ContextCompat.getColor(this, R.color.black_home_icon));
         mTvPeople.setTextColor(ContextCompat.getColor(this, R.color.black_home_icon));
         mTvVoice.setTextColor(ContextCompat.getColor(this, R.color.black_home_icon));
         mTvCollect.setTextColor(ContextCompat.getColor(this, R.color.black_home_icon));
+        mTvRecommend.setTextColor(ContextCompat.getColor(this, R.color.black_home_icon));
     }
 
 
@@ -185,17 +199,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 selectHome();
                 viewPager.setCurrentItem(0);
                 break;
+            case R.id.ll_recommend:
+                selectRecommend();
+                viewPager.setCurrentItem(1);
+                break;
             case R.id.ll_people:
                 selectPeople();
-                viewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(2);
                 break;
             case R.id.ll_voice:
                 selectVoice();
-                viewPager.setCurrentItem(2);
+                viewPager.setCurrentItem(3);
                 break;
             case R.id.ll_collect:
                 selectCollect();
-                viewPager.setCurrentItem(3);
+                viewPager.setCurrentItem(4);
                 break;
             case R.id.iv_close_music:
                 player.stop();
@@ -230,6 +248,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mTvPeople.setTextColor(ContextCompat.getColor(this, R.color.gray_bf));
     }
 
+    private void selectRecommend() {
+        AllGray();
+        mIvRecommend.setImageResource(R.mipmap.icon_fragment_recommend_write);
+        mTvRecommend.setTextColor(ContextCompat.getColor(this, R.color.gray_bf));
+    }
+
+
     private void selectVoice() {
         AllGray();
         mIvVoice.setImageResource(R.mipmap.voice_gray);
@@ -256,17 +281,20 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 selectHome();
                 break;
             case 1:
-                removeAllFragment();
-                selectPeople();
+               removeAllFragment();
+               selectRecommend();
                 break;
             case 2:
                 removeAllFragment();
-                selectVoice();
+                selectPeople();
                 break;
             case 3:
                 removeAllFragment();
-                selectCollect();
+                selectVoice();
                 break;
+            case 4:
+                removeAllFragment();
+                selectCollect();
             default:
         }
     }
@@ -343,8 +371,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private void playMusic(int position, List<Music> musicList) {
         Log.i(TAG, "playMusic: " + position);
         if (position >= musicList.size()) {
-            showShortToast("没有下一首");
-            return;
+            position = 0;
         }
         if (musicList != this.musicList) {
             this.musicList.clear();
@@ -354,9 +381,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mLlPlay.setVisibility(View.VISIBLE);
         this.musicPosition = position;
         String url = AppUtils.getDownLoadFileUrl(this.musicList.get(position).getAudioId());
-        player.prepare(ExoUtils.getMediaSourse(this, url), false, true);
+        if (player.getPlayWhenReady()){
+            player.stop();
+        }
+        player.prepare(ExoUtils.getMediaSourse(this, url), true, true);
         mTvMusicName.setText(StringUtils.ToDBC(musicList.get(position).getTitle()));
-        mTvMusicName.setMovementMethod(ScrollingMovementMethod.getInstance());
+        mIvPlay.setImageResource(R.mipmap.play_in);
+        player.setPlayWhenReady(true);
 
     }
 
@@ -421,6 +452,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         progressBar.setMax((int) player.getDuration());
         progressBar.setProgress((int) player.getCurrentPosition());
         lastRunProgress();
+        mTvTime.setText(TimeUtils.getAATTTime(player.getContentPosition()));
     };
 
     private void lastRunProgress() {

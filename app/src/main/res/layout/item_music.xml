@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:padding="5dp"
+    android:background="@drawable/item_back_black_circle"
     android:layout_height="71dp">
 
     <View
@@ -25,24 +26,25 @@
             android:layout_height="60dp" />
 
         <TextView
-            tools:text="满天星（张杰@谢娜）提心天使阿萨德"
+            tools:text="满天"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:id="@+id/tv_title"
             android:layout_toEndOf="@+id/iv_img"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
+            android:maxLines="1"
             android:layout_height="wrap_content" />
 
         <TextView
-            tools:text="满天星（张杰@谢娜）提心天使阿萨德"
+            tools:text="满天"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:id="@+id/tv_label"
             android:layout_below="@+id/tv_title"
             android:layout_toEndOf="@+id/iv_img"
             android:textColor="@color/white"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content" />
 
 
@@ -53,12 +55,14 @@
             android:src="@mipmap/play_none"
             android:layout_alignParentEnd="true"
             android:layout_width="40dp"
+            android:padding="5dp"
             android:layout_centerVertical="true"
             android:layout_height="40dp" />
 
         <ImageView
             android:id="@+id/iv_select"
             android:layout_marginEnd="85dp"
+            android:padding="5dp"
             android:src="@mipmap/select_none"
             android:layout_alignParentEnd="true"
             android:layout_width="40dp"

@@ -78,10 +78,6 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
             EventBus.getDefault().post(EventBusMessage(EventBusMessage.ADD_ALL_ARTIST_FRAGMENT,0,"")) //添加所有up fragment页面
         }
 
-        tv_all_house.setOnClickListener {
-            EventBus.getDefault().post(EventBusMessage(EventBusMessage.ADD_ALL_HOUSE_FRAGMENT))
-        }
-
         artAdapter.setOnItemClickListener { view, position ->
             var buddle =Bundle()
             buddle.putInt(MusicListFragment.type,3)
@@ -124,8 +120,10 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
     override fun getAlbumSuccess(infos: MutableList<MusicAlbumInfo>?) {
         houseList.clear()
         if (infos != null) {
-            for (musicAlbun in infos) {
-                houseList.add(musicAlbun.fields)
+            for(position in infos.indices){
+                if (position <= 10){
+                    houseList.add(infos[position].fields)
+                }
             }
         }
         srl_main.isRefreshing = false

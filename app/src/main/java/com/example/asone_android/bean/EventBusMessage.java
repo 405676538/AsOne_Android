@@ -42,6 +42,11 @@ public class EventBusMessage {
         this.bundle = bundle;
     }
 
+    public EventBusMessage(int code, int code1) {
+        this.code = code;
+        this.code1 = code1;
+    }
+
     public EventBusMessage(int code,int position,List<Music> musics) {
         this.musics = musics;
         this.code1 = position;

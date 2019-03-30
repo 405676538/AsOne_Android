@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:layout_margin="3dp"
+    android:background="@drawable/item_back_black_circle"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/iv_img"
+        android:maxLines="1"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/white"
+        tools:text="满天星（张杰@谢娜）提心天使阿萨德" />
+
+
+    <ImageView
+        android:id="@+id/iv_play"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:padding="3dp"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/play_none" />
+
+    <ImageView
+        android:id="@+id/iv_select"
+        android:layout_width="80dp"
+        android:padding="2dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/select_none" />
+
+</LinearLayout>

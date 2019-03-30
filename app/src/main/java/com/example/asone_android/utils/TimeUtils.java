@@ -1,6 +1,7 @@
 package com.example.asone_android.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -140,5 +141,19 @@ public class TimeUtils {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         Date date = calendar.getTime();
         return date;
+    }
+
+    /** 豪秒转时间 */
+    public static String getAATTTime(long longTime){
+        StringBuilder strTime = new StringBuilder();
+        int hour = (int) (longTime/1000/60/60);
+        if (hour > 0){
+            strTime.append(strTime).append(":");
+        }
+        int minue = (int) (longTime/1000/60%60);
+        strTime.append(minue).append(":");
+        int m = (int) (longTime/1000%60);
+        strTime.append(m);
+        return strTime.toString();
     }
 }

@@ -7,12 +7,22 @@ import com.example.asone_android.Base.BaseActivity
 import com.example.asone_android.Base.BaseJson
 import com.example.asone_android.R
 import com.example.asone_android.app.Constant
+import com.example.asone_android.bean.CollectInfo
+import com.example.asone_android.bean.Country
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.FileUtils
 import kotlinx.android.synthetic.main.activity_add_artist.*
 import java.io.File
 
-class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatArtistView, MusicPresenter.CreatCountryView, MusicPresenter.CreatSoundTypeView {
+class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatArtistView, MusicPresenter.CreatCountryView, MusicPresenter.CreatSoundTypeView, MusicPresenter.GetCountryView {
+    override fun GetCountrySuccess(countries: MutableList<Country>?) {
+        for (str in countries!!) {
+            countrylList.clear()
+            countrylList.add(str.name)
+        }
+
+
+    }
 
 
     var presenter = MusicPresenter()
@@ -39,6 +49,8 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
     }
 
     override fun initData() {
+        presenter.getCountry(this)
+
         btn_select_img.setOnClickListener {
             FileUtils.chooseFile(this, FileUtils.CHOOSE_FILE_CODE)
         }
@@ -52,7 +64,7 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
         }
 
         tv_select_six.setOnClickListener {
-            var options = OptionsPickerBuilder(AddArtistActivity@ this, OnOptionsSelectListener
+            var options = OptionsPickerBuilder(AddArtistActivity@this, OnOptionsSelectListener
             { options1, _, _, v -> tv_select_six.text = sixlList[options1] }).build<String>()
             options.setPicker(sixlList)
             options.show()
@@ -88,9 +100,7 @@ class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresen
     }
 
     override fun initView() {
-        for (str in Constant.countryList) {
-            countrylList.add(str)
-        }
+
         for (str in Constant.sixList) {
             sixlList.add(str)
         }

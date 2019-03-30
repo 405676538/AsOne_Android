@@ -25,7 +25,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:gravity="center_vertical"
-                android:text="推荐的合集(点击展示全部)"
+                android:text="最新合集"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
