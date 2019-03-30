@@ -1,6 +1,8 @@
 package com.example.asone_android.bean
 
-class Music {
+import java.io.Serializable
+
+class Music:Serializable {
     var audioId = ""
     var imgId = ""
     var title = ""

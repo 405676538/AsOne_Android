@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.EventBus
 
 class AllHouseFragment: BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefreshLayout.OnRefreshListener {
     override fun onRefresh() {
-        presenter.getMusicAlbum(this)
+        presenter.getMusicAlbum(1,this)
     }
 
 
@@ -53,8 +53,8 @@ class AllHouseFragment: BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeR
 
     override fun getAlbumSuccess(infos: MutableList<MusicAlbumInfo>?) {
         infos?.let {
+            houseList.clear()
             for (musicAlbun in infos) {
-                houseList.clear()
                 houseList.add(musicAlbun.fields)
             }
             srl_main.isRefreshing = false

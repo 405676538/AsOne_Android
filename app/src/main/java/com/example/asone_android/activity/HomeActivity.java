@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,6 +53,8 @@ import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.metadata.emsg.EventMessage;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -125,9 +129,35 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         });
     }
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event)
+    {
+        if(event.getAction() == KeyEvent.ACTION_UP){
+            if(keyCode == KeyEvent.KEYCODE_BACK){
+                moveTaskToBack(true);
+                return true;
+            }
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        Log.i(TAG, "onResume: player != null"+(player != null));
+//        Log.i(TAG, "onResume: mLlPlay != null"+(mLlPlay != null));
+//        Log.i(TAG, "onResume: musicList.isEmpty()"+(musicList.isEmpty()));
+//        if (player != null && mLlPlay != null && player.getPlayWhenReady()
+//                && mTvMusicName != null && mTvMusicName.getText().length() == 0){
+//            mLlPlay.setVisibility(View.VISIBLE);
+//            Log.i(TAG, "onResume: 恢复");
+//        }
+    }
 
     @Override
     protected void initView() {
+
         viewPager = findViewById(R.id.viewpager);
         mLlHome = findViewById(R.id.ll_home);
         mLlPeople = findViewById(R.id.ll_people);

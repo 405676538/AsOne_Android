@@ -35,6 +35,7 @@ class SystemHomeActivity : BaseActivity() {
         modeList.add("登录")
         modeList.add("推送")
         modeList.add("版本更新")
+        modeList.add("设置热门")
         recyclerview.layoutManager = GridLayoutManager(this, 3)
         var adapter = SystemModeAdapter(this, R.layout.item_system_mode, modeList)
         recyclerview.adapter = adapter
@@ -43,6 +44,7 @@ class SystemHomeActivity : BaseActivity() {
                 "添加一个Music" -> startActivity(Intent(mContext, AddMusicActivity::class.java))
                 "修改首页列表" -> startActivity(Intent(mContext, ChangeHouseActivity::class.java))
                 "添加一个艺术家,国家,声音种类" -> startActivity(Intent(mContext, AddArtistActivity::class.java))
+                "设置热门" -> startActivity(Intent(mContext,HotActivity::class.java))
                 "登录" -> {
                     var api: UMShareAPI = UMShareAPI.get(this)
                     api.getPlatformInfo(this, SHARE_MEDIA.QQ, object : UMAuthListener {

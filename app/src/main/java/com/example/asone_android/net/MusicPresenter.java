@@ -166,8 +166,8 @@ public class MusicPresenter {
         void getAlbumSuccess(List<MusicAlbumInfo> infos);
     }
 
-    public void getMusicAlbum(GetMusicAlbumView albumView){
-        Call<List<MusicAlbumInfo>> call = ApiClient.apiList.getMusicAlbumHouse();
+    public void getMusicAlbum(int type,GetMusicAlbumView albumView){
+        Call<List<MusicAlbumInfo>> call = ApiClient.apiList.getMusicAlbumHouse(type);
         call.enqueue(new Callback<List<MusicAlbumInfo>>() {
             @Override
             public void onResponse(Call<List<MusicAlbumInfo>> call, Response<List<MusicAlbumInfo>> response) {

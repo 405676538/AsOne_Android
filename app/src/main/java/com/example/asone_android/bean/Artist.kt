@@ -9,6 +9,7 @@ class Artist {
     var country = ""
     var recommend = ""
     var upId=""
+    var hotNum=""
     var collect = false
 
     /**

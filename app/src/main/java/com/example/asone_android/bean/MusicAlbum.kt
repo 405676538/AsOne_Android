@@ -5,6 +5,7 @@ class MusicAlbum {
     var musicList = mutableListOf<Music>()
     var title = ""
     var albumId = ""
+    var hotNum = ""
 
     fun getListIds():String{
         var sb = ""

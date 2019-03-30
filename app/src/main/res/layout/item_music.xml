@@ -3,27 +3,13 @@
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="5dp"
+    android:layout_margin="5dp"
     android:background="@drawable/item_back_black_circle"
     android:layout_height="71dp">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/white"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/iv_img"
-            android:layout_marginStart="10dp"
-            android:layout_centerVertical="true"
-            android:layout_width="60dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/mode_music"
-            android:layout_height="60dp" />
 
         <TextView
             tools:text="满天"

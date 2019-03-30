@@ -47,8 +47,6 @@ class MusicAdapter(context: Context, layout:Int, private val systemList:MutableL
         }else{
             select.setImageResource(R.mipmap.select_none)
         }
-//        http://192.168.100.64:8000/downLoadFile/1552642904.4751825fileId.jpg
-        ImageUtil.GlidegetRoundImage(AppUtils.getDownLoadFileUrl(music.imgId),img)
         title.text = music.title
         lable.text = music.musicLabel
 

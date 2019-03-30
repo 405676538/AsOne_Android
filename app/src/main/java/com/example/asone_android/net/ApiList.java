@@ -23,6 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
@@ -51,7 +52,11 @@ public interface ApiList {
 
     /** 获取MusicAlbum首页列表*/
     @GET("/house/album")
-    Call<List<MusicAlbumInfo>> getMusicAlbumHouse();
+    Call<List<MusicAlbumInfo>> getMusicAlbumHouse(@Query("type")int type);
+
+    /** 修改MusicAlbum首页列表热度*/
+    @PUT("/house/album")
+    Call<BaseJson> putMusicAlbumHouse(@Query("hotNum")int hotNum,@Query("albumId")String albumId);
 
     /** 创建一个艺术家 */
     @POST("/artist")
@@ -62,6 +67,11 @@ public interface ApiList {
     /** 获取艺术家列表 */
     @GET("/artist")
     Call<List<BaseListJson>> getArtistList(@Query("type") int type,@Query("typeContent")String typeContent,@Query("userId") String userId);
+
+    /** 获取艺术家列表 */
+    @PUT("/artist")
+    Call<BaseJson> putArtistList(@Query("hotNum") int hotNum,@Query("upId")String upId);
+
 
     /** 创建国家 */
     @POST("/country")
@@ -109,4 +119,5 @@ public interface ApiList {
     /** 根据合集id 获取列表 */
     @GET("/house/album/detail")
     Call<List<BaseListJson>> getAlbumMusicList(@Query("albumId")String albumId);
+
 }

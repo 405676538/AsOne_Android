@@ -107,7 +107,7 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
     }
 
     override fun onRefresh() {
-        presenter.getMusicAlbum(this)
+        presenter.getMusicAlbum(0,this)
         if (TextUtils.isEmpty(ACache.get().getAsString(ACache.TAG_USER_ID))){
             add_select.visibility = View.VISIBLE
             tv_hint_art.visibility = View.VISIBLE

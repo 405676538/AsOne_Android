@@ -85,16 +85,16 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
     }
 
     override fun onRefresh() {
-        presenter.getArtistList(this,5,"是")
+        presenter.getArtistList(this,7,"")
         presenter.getCountry(this)
     }
 
     override fun getArtistSuccess(artists: MutableList<Artist>?) {
         artistList.clear()
         artists?.let {
-            for (art in artists){
-                if (art.recommend == "是"){
-                    artistList.add(art)
+            for (position in artists.indices){
+                if (position <= 9){
+                    artistList.add(artists[position])
                 }
             }
         }
