@@ -64,24 +64,18 @@ import java.util.List;
 public class HomeActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, MusicPresenter.GetBVersionView {
     private static final String TAG = "HomeActivity";
     private ViewPager viewPager;
-    private LinearLayout mLlHome, mLlPeople, mLlVoice, mLlCollect,mLlRecommend;
-    private ImageView mIvHome, mIvPeople, mIvVoice, mIvCollect, mIvCloseMusic, mIvPlay,mIvRecommend;
-    private TextView mTvHome, mTvPeople, mTvVoice, mTvCollect, mTvMusicName, mTvAllTime,mTvRecommend;
+    private LinearLayout mLlHome, mLlPeople, mLlVoice, mLlCollect, mLlRecommend;
+    private ImageView mIvHome, mIvPeople, mIvVoice, mIvCollect, mIvCloseMusic, mIvPlay, mIvRecommend;
+    private TextView mTvHome, mTvPeople, mTvVoice, mTvCollect, mTvMusicName, mTvAllTime, mTvRecommend;
     private LinearLayout mLlPlay;
     private SeekBar progressBar;
     private TextView mTvTime;
-
-    private HomeFragment homeFragment = new HomeFragment();
-    private PeopleFragment peopleFragment = new PeopleFragment();
-    private VoiceFragment voiceFragment = new VoiceFragment();
-    private CollectFragment collectFragment = new CollectFragment();
-    private AllHouseFragment mAllHouseFragment = new AllHouseFragment();
-    List<Fragment> mFragmentList = new ArrayList<>();
+    List<Fragment> mFragmentList;
     FragmentAdapter mFragmentAdapter;
-    MusicPresenter mMusicPresenter = new MusicPresenter();
+    MusicPresenter mMusicPresenter;
     private ExoPlayer player;
     int musicPosition = 0;
-    private List<Music> musicList = new ArrayList<>();
+    private List<Music> musicList;
     Handler progressHandler;
 
 
@@ -90,13 +84,25 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         return R.layout.activity_home;
     }
 
-    @Override
-    protected void initData() {
+    void getFragments() {
+        HomeFragment homeFragment = new HomeFragment();
+        PeopleFragment peopleFragment = new PeopleFragment();
+        VoiceFragment voiceFragment = new VoiceFragment();
+        CollectFragment collectFragment = new CollectFragment();
+        AllHouseFragment allHouseFragment = new AllHouseFragment();
+        mFragmentList = new ArrayList<>();
         mFragmentList.add(homeFragment);
-        mFragmentList.add(mAllHouseFragment);
+        mFragmentList.add(allHouseFragment);
         mFragmentList.add(peopleFragment);
         mFragmentList.add(voiceFragment);
         mFragmentList.add(collectFragment);
+    }
+
+    @Override
+    protected void initData() {
+        getFragments();
+        mMusicPresenter = new MusicPresenter();
+        musicList = new ArrayList<>();
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mFragmentAdapter);
@@ -130,10 +136,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event)
-    {
-        if(event.getAction() == KeyEvent.ACTION_UP){
-            if(keyCode == KeyEvent.KEYCODE_BACK){
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_UP) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
                 moveTaskToBack(true);
                 return true;
             }
@@ -305,14 +310,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onPageSelected(int i) {
+        if (fragments == null) {
+
+        }
         switch (i) {
             case 0:
                 removeAllFragment();
                 selectHome();
                 break;
             case 1:
-               removeAllFragment();
-               selectRecommend();
+                removeAllFragment();
+                selectRecommend();
                 break;
             case 2:
                 removeAllFragment();
@@ -411,7 +419,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mLlPlay.setVisibility(View.VISIBLE);
         this.musicPosition = position;
         String url = AppUtils.getDownLoadFileUrl(this.musicList.get(position).getAudioId());
-        if (player.getPlayWhenReady()){
+        if (player.getPlayWhenReady()) {
             player.stop();
         }
         player.prepare(ExoUtils.getMediaSourse(this, url), true, true);
