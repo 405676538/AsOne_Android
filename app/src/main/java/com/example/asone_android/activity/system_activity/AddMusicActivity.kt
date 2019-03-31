@@ -14,6 +14,7 @@ import com.example.asone_android.bean.Country
 import com.example.asone_android.bean.Sound
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.FileUtils
+import com.example.asone_android.utils.GoogleTranslatonUtils
 import kotlinx.android.synthetic.main.activity_system.*
 import kotlinx.android.synthetic.main.include_top_bar_all.*
 import java.io.File
@@ -49,8 +50,6 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
             getEdit()
             presenter.creatMusic(voiceId,imgId,title,musicLabel,artist,country,this)
         }
-
-
     }
 
     fun getEdit(){
@@ -94,6 +93,7 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
                 presenter.postUpLoad(file,this,requestCode)
                 if (requestCode == FileUtils.CHOOSE_VOICE_CODE){
                     et_title.setText(file.name)
+                    GoogleTranslatonUtils().translate(this, "en", "zh-cn", file.name, translateCallback)
                 }
             }else{
                 showShortToast("data 为空")
@@ -101,6 +101,10 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
 
         }
     }
+
+     var translateCallback = GoogleTranslatonUtils.TranslateCallback{
+         tv_type.text = it
+     }
 
     override fun upLoadSuccess(id: String?,requestCode: Int) {
         if (requestCode == FileUtils.CHOOSE_FILE_CODE){

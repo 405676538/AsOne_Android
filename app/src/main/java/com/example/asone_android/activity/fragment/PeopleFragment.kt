@@ -47,7 +47,7 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
     }
 
     override fun initData() {
-        rcl_artist.layoutManager = GridLayoutManager(mContext,3)
+        rcl_artist.layoutManager = GridLayoutManager(mContext,3) as RecyclerView.LayoutManager?
         artistAdapter = ArtistAdapter(mContext,R.layout.item_artist,artistList)
         rcl_artist.adapter = artistAdapter
 

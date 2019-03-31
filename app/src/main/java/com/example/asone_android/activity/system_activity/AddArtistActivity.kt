@@ -16,8 +16,8 @@ import java.io.File
 
 class AddArtistActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresenter.CreatArtistView, MusicPresenter.CreatCountryView, MusicPresenter.CreatSoundTypeView, MusicPresenter.GetCountryView {
     override fun GetCountrySuccess(countries: MutableList<Country>?) {
+        countrylList.clear()
         for (str in countries!!) {
-            countrylList.clear()
             countrylList.add(str.name)
         }
 
