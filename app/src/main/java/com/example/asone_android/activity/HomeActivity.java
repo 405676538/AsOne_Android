@@ -104,7 +104,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mMusicPresenter = new MusicPresenter();
         musicList = new ArrayList<>();
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
-        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mFragmentAdapter);
         viewPager.addOnPageChangeListener(this);
         mMusicPresenter.getVersionInfo(this);
@@ -138,7 +137,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_UP) {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 moveTaskToBack(true);
                 return true;
             }
@@ -147,18 +146,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        Log.i(TAG, "onResume: player != null"+(player != null));
-//        Log.i(TAG, "onResume: mLlPlay != null"+(mLlPlay != null));
-//        Log.i(TAG, "onResume: musicList.isEmpty()"+(musicList.isEmpty()));
-//        if (player != null && mLlPlay != null && player.getPlayWhenReady()
-//                && mTvMusicName != null && mTvMusicName.getText().length() == 0){
-//            mLlPlay.setVisibility(View.VISIBLE);
-//            Log.i(TAG, "onResume: 恢复");
-//        }
-    }
 
     @Override
     protected void initView() {
@@ -481,10 +468,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
+
 
     Runnable runnableProgress = () -> {
         progressBar.setMax((int) player.getDuration());
