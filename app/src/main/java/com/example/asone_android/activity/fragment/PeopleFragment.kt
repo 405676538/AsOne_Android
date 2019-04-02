@@ -93,7 +93,7 @@ class PeopleFragment: BaseFragment(), SwipeRefreshLayout.OnRefreshListener, Musi
         artistList.clear()
         artists?.let {
             for (position in artists.indices){
-                if (position <= 9){
+                if (position <= 5){
                     artistList.add(artists[position])
                 }
             }

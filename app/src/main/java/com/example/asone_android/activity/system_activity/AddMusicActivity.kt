@@ -93,7 +93,7 @@ class AddMusicActivity : BaseActivity(), MusicPresenter.UpLoadView, MusicPresent
                 presenter.postUpLoad(file,this,requestCode)
                 if (requestCode == FileUtils.CHOOSE_VOICE_CODE){
                     et_title.setText(file.name)
-                    GoogleTranslatonUtils().translate(this, "en", "zh-cn", file.name, translateCallback)
+                    GoogleTranslatonUtils().translate(this, "auto", "zh-cn", file.name.replace("-"," "), translateCallback)
                 }
             }else{
                 showShortToast("data 为空")

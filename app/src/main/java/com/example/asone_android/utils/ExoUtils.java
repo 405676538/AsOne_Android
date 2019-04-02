@@ -11,9 +11,15 @@ import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
@@ -37,15 +43,14 @@ import java.io.File;
 public class ExoUtils {
 
     public static ExoPlayer initPlayer(Context context) {
-        return ExoPlayerFactory.newSimpleInstance(context, new DefaultRenderersFactory(context),
-                new DefaultTrackSelector(), new DefaultLoadControl());
+        return ExoPlayerFactory.newSimpleInstance(context,
+                new DefaultTrackSelector());
     }
 
     public static MediaSource getMediaSourse(Context context, String filePath) {
         Uri uri;
         if (filePath.contains("http")) {
             uri = Uri.parse(filePath);
-
             return buildHttpMediaSource(uri);
 
         } else {

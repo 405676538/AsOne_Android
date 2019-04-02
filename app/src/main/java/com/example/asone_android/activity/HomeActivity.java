@@ -124,6 +124,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 if (playbackState == Player.STATE_READY) {
                     if (playWhenReady) {
+                        dismissLoaddialog();
                         Log.i(TAG, "playMusic: " + player.getDuration() + "");
                         String time = "/" + TimeUtils.getAATTTime(player.getDuration());
                         mTvAllTime.setText(time);
@@ -193,6 +194,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                showLoadDialog();
                 player.seekTo((long) seekBar.getProgress());
             }
 
