@@ -1,6 +1,8 @@
 package com.example.asone_android.activity.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,11 +13,9 @@ import com.example.asone_android.Base.BaseFragment
 import com.example.asone_android.R
 import com.example.asone_android.adapter.HomeArcAdapter
 import com.example.asone_android.adapter.HouseAdapter
-import com.example.asone_android.app.Constant
 import com.example.asone_android.bean.*
 import com.example.asone_android.net.MusicPresenter
 import com.example.asone_android.utils.ACache
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_top_bar_all.*
 import org.greenrobot.eventbus.EventBus
@@ -143,7 +143,11 @@ class HomeFragment : BaseFragment(), MusicPresenter.GetMusicAlbumView, SwipeRefr
             artList.addAll(artists)
             artAdapter.notifyDataSetChanged()
         }
-        srl_main.isRefreshing = false
+        Handler(Looper.getMainLooper()).post {
+            if (srlMain != null){
+                srlMain?.isRefreshing = false
+            }
+        }
     }
 
     override fun onEventMainThread(eventBusMessage: EventBusMessage?) {
