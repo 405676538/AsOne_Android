@@ -18,9 +18,6 @@ public class Constant {
     public static final String LastVersionCheckTime = "LastVersionCheckTime";
 
     public static final String[] sPermissionsArray = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE,
     };
     /***
      * rank 模块
